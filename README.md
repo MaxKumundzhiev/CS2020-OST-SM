@@ -10,7 +10,7 @@ CS2020-OST-SM service
 
 
 ## Data Description
-The project data source is `(NetML Challenge 2020)`[https://github.com/ACANETS/NetML-Competition2020]
+The project data source is [NetML Challenge 2020](https://github.com/ACANETS/NetML-Competition2020)
 - Data is represented as the collection of  `1,199,139 flows` in spreaded across `3 different datasets` (including detailed flow features and labels.)
     - NetML
       NetML dataset is constructed by selecting several PCAP files from www.stratosphereips.org website.
