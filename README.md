@@ -6,7 +6,7 @@ CS2020-OST-SM service
 :information_source: under process
 
 ## Service Diagram 
-:information_source: under process
+![Service Diagram](service_diagram/OST-SM.jpg "OST-SM Diagram") 
 
 
 ## Data Description
