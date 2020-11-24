@@ -21,7 +21,14 @@ The project data source is [NetML Challenge 2020](https://github.com/ACANETS/Net
        Detailed description can be found at: [NetML: A Challenge for Network Traffic Analytics](https://arxiv.org/abs/2004.13006)
 
 ## Requirements
-:information_source: under process
+The assumed environment provider: **conda**
+To set up conda on your machine follow steps on [official documentation](https://docs.conda.io/en/latest/miniconda.html)
+
+**Create dedicated conda environment and set up dependencies**    
+```bash
+$ conda create -n OST python=3.8 -y && conda activate OST
+$ pip install -r reqirements.txt 
+```     
 
 ## Deployment
  :information_source: under process
