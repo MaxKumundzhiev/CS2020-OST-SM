@@ -1,9 +1,23 @@
 # CS2020-OST-SM :construction: 
-CS2020-OST-SM service
+CS2020-OST-SM application
 
 
-## Service Description
-:information_source: under process
+## Application Description
+### Application Propose
+The application propose is the provision of 3 classification pre-trained on real-world data models which enables to predict 3 different types of targets.
+
+### Application Structure
+The application assumed to be deployed onto the dedicated GCP instance, jointly the application will provide finite number of endpoints to trigger dedicated parts of the application by api.      
+
+**The application is splitted on dedicated independent micro-services** 
+<ul>
+<li>**mongodb microservice** and corresponding interface to interact with it.</li>
+<li>**cassandradb microservice** and corresponding interface to interact with it.</li>
+<li>**ml-kit microservice**</li>
+<li>**spark microservice**</li>
+<li>**flink microservice**</li>
+<ul>
+Each and every microservice is independently deployable. 
 
 ## Service Diagram 
 ![Service Diagram](service_diagram/OST-SM.jpg "OST-SM Diagram") 
