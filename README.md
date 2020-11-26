@@ -9,15 +9,22 @@ The application propose is the provision of 3 classification pre-trained on real
 ### Application Structure
 The application assumed to be deployed onto the dedicated GCP instance, jointly the application will provide finite number of endpoints to trigger dedicated parts of the application by api.      
 
-**The application is splitted on dedicated independent micro-services** 
+**The application is splitted on dedicated independent microservices** 
+<div id="divActivites" name="divActivites" style="border:thin">
+    <textarea id="inActivities" name="inActivities" style="border:1px solid black;">
+    Each and every microservice is independently deployable.
+    Communicates between microservices operates based on interface of each microservice.
+    </textarea> 
+</div> 
+
 <ul>
-<li>**mongodb microservice** and corresponding interface to interact with it.</li>
-<li>**cassandradb microservice** and corresponding interface to interact with it.</li>
-<li>**ml-kit microservice**</li>
-<li>**spark microservice**</li>
-<li>**flink microservice**</li>
-<ul>
-Each and every microservice is independently deployable. 
+  <li>mongodb microservice and corresponding interface to interact with it.</li>
+  <li>cassandradb microservice and corresponding interface to interact with it.</li>
+  <li>ml-kit microservice</li>
+  <li>spark microservice</li>
+  <li>flink microservice</li>
+</ul>
+
 
 ## Service Diagram 
 ![Service Diagram](service_diagram/OST-SM.jpg "OST-SM Diagram") 
@@ -46,3 +53,28 @@ $ pip install -r reqirements.txt
 
 ## Deployment
  :information_source: under process
+
+#### MongoDB deployment
+```bash
+$ 
+```
+
+#### CassandraDB deployment
+```bash
+$ 
+```
+
+#### ML-KIT deployment
+```bash
+$ 
+```
+
+#### Spark deployment
+```bash
+$ 
+```
+
+#### Flink deployment
+```bash
+$ 
+```
