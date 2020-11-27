@@ -26,9 +26,16 @@ Communicates between microservices operates based on interface of each microserv
 API and the Extensible Service Proxy (ESP) run in prebuilt Docker containers on GCP Compute Engine.
 
 #### ml-kit microservice
+TBD
+
 #### spark microservice
+TBD
+
 #### flink microservice
+TBD
+
 #### mongodb microservice and corresponding interface
+TBD
 
 ## Applivation High-Level Diagram 
 ![Application Diagram](service_diagram/OST-SM.jpg) 
@@ -47,25 +54,38 @@ The project data source is [NetML Challenge 2020](https://github.com/ACANETS/Net
        non-vpn2016 dataset is the subset of ISCX-VPN-nonVPN2016 dataset from https://www.unb.ca/cic/datasets/vpn.html
        Detailed description can be found at: [NetML: A Challenge for Network Traffic Analytics](https://arxiv.org/abs/2004.13006)
 
-## Requirements
-The assumed environment provider: **conda**
-To set up conda on your machine follow steps on [official documentation](https://docs.conda.io/en/latest/miniconda.html)
 
-**Create dedicated conda environment and set up dependencies**    
+## Cloud Enginer
+The assumed environment provider: **conda**
+- **conda** is already preinstalled on the Cloud Enginer by administartor.
+- **docker** is already preinstalled on the Cloud Enginer by administartor. 
+
+#### Connect to Cloud Engine
 ```bash
-$ conda create -n OST python=3.8 -y && conda activate OST
+$ ssh username@instance-ip-address
+> Enter password
+``` 
+
+#### Connect to running Docker Container on Cloud Engine
+```bash
+$ docker exec -it {DOCKER CONTAINER ID} bash
+``` 
+
+
+**It is higly reccomned to create dedicated conda environment for yourself.**    
+```bash
+$ conda create -n {environment_name} python=3.8 -y && conda activate {environment_name}
 $ pip install -r reqirements.txt 
 ```     
 
+
 ## Deployment
  :information_source: under process
-
-#### MongoDB deployment
 ```bash
 $ 
 ```
 
-#### CassandraDB deployment
+#### MongoDB deployment
 ```bash
 $ 
 ```
