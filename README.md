@@ -69,7 +69,7 @@ TBD
 ## mongodb microservice
 TBD
 
-# Applivation High-Level Diagram 
+# Application High-Level Diagram 
 ![Application Diagram](service_diagram/OST-SM.jpg) 
 # MongoDB Tables Schema
 ![MongoDB Shema](service_diagram/mongodb-schema.jpg) 
@@ -87,7 +87,7 @@ The project data source is [NetML Challenge 2020](https://github.com/ACANETS/Net
        Detailed description can be found at: [NetML: A Challenge for Network Traffic Analytics](https://arxiv.org/abs/2004.13006)
 
 
-# Cloud Enginer
+# Cloud Engine
 The assumed environment provider: **conda**
 - **conda** is already preinstalled on the Cloud Enginer by administartor.
 - **docker** is already preinstalled on the Cloud Enginer by administartor. 
