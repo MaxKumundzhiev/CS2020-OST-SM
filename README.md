@@ -16,34 +16,35 @@ Each and every microservice is independently deployable.
 Communicates between microservices operates based on interface of each microservice.
 
 <ul>
+Microservices:
   <li>ml-kit microservice</li>
   <li>spark microservice</li>
   <li>flink microservice</li>
-  <li>mongodb microservice and corresponding interface.</li>
+  <li>mongodb microservice</li>
 </ul>
 
-#### api 
+## api 
 API and the Extensible Service Proxy (ESP) run in prebuilt Docker containers on GCP Compute Engine.
 
-#### ml-kit microservice
+## ml-kit microservice
 TBD
 
-#### spark microservice
+## spark microservice
 TBD
 
-#### flink microservice
+## flink microservice
 TBD
 
-#### mongodb microservice and corresponding interface
+## mongodb microservice
 TBD
 
-## Applivation High-Level Diagram 
+# Applivation High-Level Diagram 
 ![Application Diagram](service_diagram/OST-SM.jpg) 
-## MongoDB Tables Schema
+# MongoDB Tables Schema
 ![MongoDB Shema](service_diagram/mongodb-schema.jpg) 
 
 
-## Data Description
+# Data Description
 The project data source is [NetML Challenge 2020](https://github.com/ACANETS/NetML-Competition2020)
 - Data is represented as the collection of  `1,199,139 flows` in spreaded across `3 different datasets` (including detailed flow features and labels.)
     - NetML
@@ -55,18 +56,18 @@ The project data source is [NetML Challenge 2020](https://github.com/ACANETS/Net
        Detailed description can be found at: [NetML: A Challenge for Network Traffic Analytics](https://arxiv.org/abs/2004.13006)
 
 
-## Cloud Enginer
+# Cloud Enginer
 The assumed environment provider: **conda**
 - **conda** is already preinstalled on the Cloud Enginer by administartor.
 - **docker** is already preinstalled on the Cloud Enginer by administartor. 
 
-#### Connect to Cloud Engine
+### Connect to Cloud Engine
 ```bash
 $ ssh username@instance-ip-address
 > Enter password
 ``` 
 
-#### Connect to running Docker Container on Cloud Engine
+### Connect to running Docker Container on Cloud Engine
 ```bash
 $ docker exec -it {DOCKER CONTAINER ID} bash
 ``` 
@@ -79,7 +80,7 @@ $ pip install -r reqirements.txt
 ```     
 
 
-## Deployment
+# Deployment
  :information_source: under process
 ```bash
 $ 
