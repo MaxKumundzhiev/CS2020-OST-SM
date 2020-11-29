@@ -71,6 +71,8 @@ TBD
 
 # Application High-Level Diagram 
 ![Application Diagram](service_diagram/OST-SM.jpg) 
+# Docker Host Diagram
+![Docker Diagram](service_diagram/Docker-Compose-V02.png) 
 # MongoDB Tables Schema
 ![MongoDB Shema](service_diagram/mongodb-schema.jpg) 
 
