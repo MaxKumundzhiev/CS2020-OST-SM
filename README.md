@@ -73,46 +73,34 @@ The assumed environment provider: **conda**
 - **docker** is already preinstalled on the Cloud Enginer by administartor. 
 
 ### Connect to Cloud Engine
-Once you need to get access to the GCP instance:
-    1. prepare your public key
-    <br>
-    Copy content of:<br>
-    ```
-    $ cat ~/.ssh/id_rsa.pub
-    ```
-    <br>
-    2. contact the administrator 
+**Once you need to get access to the GCP instance**:
+1. prepare your public key
+Copy content of:
+```bash
+$ cat ~/.ssh/id_rsa.pub
+```
+2. contact the administrator 
 
-[Official GCP Documentation HOWTO connect to VM](https://cloud.google.com/compute/docs/instances/connecting-to-instance)
-#### Using Cloud Console
-In the list of virtual machine instances, click SSH in the row of the instance that you want to connect to.
-After you connect, you can use the terminal to run commands on your Linux instance. When you are done, use the exit command to disconnect from the instance.
-
-#### Using Cloud Console 
+#### Using native Terminal and SSH client  
 ```bash
 $ ssh username@instance-ip-address
 $ ssh macbook@35.246.102.21 
 ``` 
 
+#### Using Cloud Console
+In the list of virtual machine instances, click SSH in the row of the instance that you want to connect to.
+After you connect, you can use the terminal to run commands on your Linux instance. When you are done, use the exit command to disconnect from the instance.
+
 #### Using gcloud SDK
 ```bash
-$ gcloud compute ssh INTERNAL_INSTANCE_NAME \
-    --zone=ZONE \
-    --internal-ip
-
-OR
-
+$ gcloud compute ssh INTERNAL_INSTANCE_NAME --zone=ZONE --internal-ip
+e.g.:
 $ gcloud beta compute ssh --zone "europe-west2-c" "ost-sm-instance" --project "dazzling-task-267622"
 ``` 
 
-### Connect to running Docker Container on Cloud Engine
-```bash
-$ docker exec -it {DOCKER CONTAINER ID} bash
-``` 
-
-
-**It is higly reccomned to create dedicated conda environment for yourself.**    
+**It is highly recommended to create dedicated conda environment for yourself.**    
 ```bash
 $ conda create -n {environment_name} python=3.8 -y && conda activate {environment_name}
 $ pip install -r reqirements.txt 
-```     
+```
+     
