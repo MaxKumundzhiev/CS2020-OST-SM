@@ -1,8 +1,11 @@
 # Google Cloud Engine API
-Here you can find the configurations and functionalities for OST-SM Google Cloud Engine.
+**GCP-wise Service Name: echo-api.endpoints.dazzling-task-267622.cloud.goog**
+ 
+ Here you can find the configurations and functionalities for OST-SM Google Cloud Engine.
+
 
 ## Structure
-./endpoints - store `openapi.yml` configuration file within instance endpoints.
+.api/endpoints - store `openapi.yml` configuration file within instance endpoints.
 
 ## Routines
 
@@ -13,5 +16,9 @@ check gcp project-wise deployed services
 $ gcloud services list
 
 deploy endpoints
-$ gcloud endpoints services deploy openapi.yaml 
+$ gcloud endpoints services deploy openapi.yaml
+
+enable endpoints
+$ gcloud services enable <service name>
+$ gcloud services enable echo-api.endpoints.dazzling-task-267622.cloud.goog 
 ```    
