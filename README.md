@@ -1,5 +1,36 @@
 # CS2020-OST-SM :construction: 
 CS2020-OST-SM application
+<ul>Participants:
+<li>Ahmad Abdelrahim -- user-1</li>
+<li>Bashar Khdr -- user-2</li>
+<li>Georgie Kalaygie -- user-3</li>
+<li>Tasnime Ayed -- user-4</li>
+<li>Ekaterina Zolotareva -- user-5</li>
+<li>Maksim Kumundzhiev -- user-6</li>
+</ul>
+
+Each member has dedicated git branch to work on with corresponding name.
+
+## Kick off
+```bash
+$ mkdir ost-sm && cd ost-sm
+$ git clone https://github.com/KumundzhievMaxim/CS2020-OST-SM.git && cd CS2020-OST-SM
+$ git checkout user-{your_number}
+
+## Hints 
+1. do not forget frequently fetch updates from master branch if there are such.   
+2. do more commits approaching your task. 
+  use foolowing format of commiting changes:
+  $ git commit -m 'user-{your_number}, {what"s done}'
+
+4. do more PRs approaching your task.
+  - write explicit description of PR;
+  - assign yourself for pushing PR;
+  - add reviewers (your teammembers) for PR;
+  - DO NOT merge PR until at least one of teammembers will not review it;  
+
+5. keep code clean and readable for other teammembers. 
+```
 
 
 ## Application Description
@@ -45,9 +76,11 @@ TBD
 ## cassandra microservice
 TBD
 
-# Applivation High-Level Diagram 
-![Application Diagram](service_diagram/OST-SM.jpg) 
 
+# Application High-Level Diagram 
+![Application Diagram](service_diagram/OST-SM.jpg) 
+ 
+ 
 
 # Data Description
 The project data source is [NetML Challenge 2020](https://github.com/ACANETS/NetML-Competition2020)
@@ -66,7 +99,6 @@ The project data source is [NetML Challenge 2020](https://github.com/ACANETS/Net
 |Name           |Zone             |Internal IP  |External IP  |Connect |OS Type
 |---            |---              |---          |---          |---     |---    
 |ost-sm-instance|europe-west2-c   |10.154.0.2   |10.154.0.2   |SSH     |Ubuntu
-
 
 The assumed environment provider: **conda**
 - **conda** is already preinstalled on the Cloud Enginer by administartor.
