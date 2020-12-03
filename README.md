@@ -38,10 +38,11 @@ TBD
 ## mongodb microservice
 TBD
 
+## cassandra microservice
+TBD
+
 # Applivation High-Level Diagram 
 ![Application Diagram](service_diagram/OST-SM.jpg) 
-# MongoDB Tables Schema
-![MongoDB Shema](service_diagram/mongodb-schema.jpg) 
 
 
 # Data Description
@@ -78,30 +79,3 @@ $ docker exec -it {DOCKER CONTAINER ID} bash
 $ conda create -n {environment_name} python=3.8 -y && conda activate {environment_name}
 $ pip install -r reqirements.txt 
 ```     
-
-
-# Deployment
- :information_source: under process
-```bash
-$ 
-```
-
-#### MongoDB deployment
-```bash
-$ 
-```
-
-#### ML-KIT deployment
-```bash
-$ 
-```
-
-#### Spark deployment
-```bash
-$ 
-```
-
-#### Flink deployment
-```bash
-$ 
-```
