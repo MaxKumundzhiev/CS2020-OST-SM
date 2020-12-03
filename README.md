@@ -21,7 +21,11 @@ Microservices:
   <li>spark microservice</li>
   <li>flink microservice</li>
   <li>mongodb microservice</li>
+  <li>cassandra microservice</li>
 </ul>
+
+### Routines
+
 
 ## api 
 API and the Extensible Service Proxy (ESP) run in prebuilt Docker containers on GCP Compute Engine.
@@ -57,15 +61,48 @@ The project data source is [NetML Challenge 2020](https://github.com/ACANETS/Net
        Detailed description can be found at: [NetML: A Challenge for Network Traffic Analytics](https://arxiv.org/abs/2004.13006)
 
 
-# Cloud Enginer
+# Cloud Engine
+### Engine Characteristics
+|Name           |Zone             |Internal IP  |External IP  |Connect |OS Type
+|---            |---              |---          |---          |---     |---    
+|ost-sm-instance|europe-west2-c   |10.154.0.2   |10.154.0.2   |SSH     |Ubuntu
+
+
 The assumed environment provider: **conda**
 - **conda** is already preinstalled on the Cloud Enginer by administartor.
 - **docker** is already preinstalled on the Cloud Enginer by administartor. 
 
 ### Connect to Cloud Engine
+Once you need to get access to the GCP instance:
+    1. prepare your public key
+    <br>
+    Copy content of:<br>
+    ```
+    $ cat ~/.ssh/id_rsa.pub
+    ```
+    <br>
+    2. contact the administrator 
+
+[Official GCP Documentation HOWTO connect to VM](https://cloud.google.com/compute/docs/instances/connecting-to-instance)
+#### Using Cloud Console
+In the list of virtual machine instances, click SSH in the row of the instance that you want to connect to.
+After you connect, you can use the terminal to run commands on your Linux instance. When you are done, use the exit command to disconnect from the instance.
+
+#### Using Cloud Console 
 ```bash
 $ ssh username@instance-ip-address
-> Enter password
+$ ssh macbook@35.246.102.21 
+``` 
+
+#### Using gcloud SDK
+```bash
+$ gcloud compute ssh INTERNAL_INSTANCE_NAME \
+    --zone=ZONE \
+    --internal-ip
+
+OR
+
+$ gcloud beta compute ssh --zone "europe-west2-c" "ost-sm-instance" --project "dazzling-task-267622"
 ``` 
 
 ### Connect to running Docker Container on Cloud Engine
