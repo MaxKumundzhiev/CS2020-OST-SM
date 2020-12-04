@@ -19,9 +19,15 @@ Zookeeper - it is a coordination software, distributed as well, used by Apache K
 
 # Deployment
 ```bash
-spin up the cluster
-$ docker-compose up
+create docker network
+$ docker network create kafka-network
 
-within another terminal, to know when kafka cluster finished initialising
-$ docker-compose logs -f broker | grep started
+spin up the kafka cluster 
+$ docker-compose -f docker-compose.kafka.yml up # specific case
+
+within another terminal, to know when kafka cluster finished initialising 
+$ docker-compose -f docker-compose.kafka.yml logs broker # specific case
+
+spin up the generator && detector  
+$ docker-compose up
 ```
