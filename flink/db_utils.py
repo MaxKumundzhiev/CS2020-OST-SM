@@ -4,19 +4,27 @@ from cassandra.query import SimpleStatement, dict_factory
 
 class CassandraDb:
 
-    def __init__(self, ip_addr, port, keyspace):
+    def __init__( self, ip_addr, port):
 
-        cluster = Cluster([ip_addr])
+        cluster = Cluster(ip_addr, port=port)
 
-        self.session = cluster.connect(keyspace)
+        self.session = cluster.connect()
 
         self.session.row_factory = dict_factory
+
     # create a table inside a specific keyspace
+
+    def create_keyspace(self, keyspace ):
+
+        query = "CREATE KEYSPACE "+keyspace+" WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 3};"
+
+        self.session.execute( query )
+
     def create_table( self, keyspace, table, fields ):
 
         self.session.execute('USE {};'.format( keyspace ) )
 
-        create_table_query = 'CREATE TABLE ({});'.format( ','.join(fields) )
+        create_table_query = 'CREATE TABLE {} ({});'.format( table, ','.join(fields) )
 
         self.session.execute( create_table_query )
 
@@ -39,10 +47,35 @@ class CassandraDb:
 
             self.session.execute( query, row.values())
 
-    def read_table( self, table):
+    def read_table( self, keyspace, table, fields=[]):
 
-        select_query = 'SELECT * FROM {}'.format(table);
+        self.session.execute('USE {};'.format( keyspace ) )
+
+        if len( fields ) == 0:
+
+            select_query = 'SELECT * FROM {};'.format( table )
+
+        else:
+            select_query = 'SELECT {} FROM {};'.format( ','.join( fields ), table )
 
         future = self.session.execute_async( select_query )
 
         return list( future.result() )
+
+    def alter_table( self, keyspace, tablename, col, coltype ):
+
+        self.session.execute('USE {};'.format( keyspace ) )
+
+        alter_query = 'ALTER TABLE {} ADD {} {};'.format(tablename, col, coltype)
+
+        self.session.execute( alter_query )
+
+    def update_records( self, keyspace, table_name, ids, col, new_vals):
+
+        self.session.execute('USE {};'.format( keyspace ) )
+
+        for id, new_val in zip( ids, new_vals ):
+
+            update_query = 'UPDATE {} SET {}={} WHERE id={}'.format( table_name, col, "'"+new_val+"'", id)
+
+            self.session.execute(update_query)

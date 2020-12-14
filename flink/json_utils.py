@@ -1,8 +1,12 @@
 import json
+import gzip
 
 def load_json_data(file_path):
 
-    with open(file_path, 'r') as f:
+    if 'gz' in file_path:
+        with gzip.open( file_path, 'rb' ) as f:
+            return json.load( f )
 
-        data = json.load(f)
-    return data
+    else:
+        with open(file_path, 'r') as f:
+            return json.load( f )
