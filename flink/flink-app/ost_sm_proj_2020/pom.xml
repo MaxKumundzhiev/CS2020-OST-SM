@@ -30,7 +30,7 @@ under the License.
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<flink.version>1.12.0</flink.version>
+		<flink.version>1.11.2</flink.version>
 		<target.java.version>1.8</target.java.version>
 		<scala.binary.version>2.11</scala.binary.version>
 		<maven.compiler.source>${target.java.version}</maven.compiler.source>
@@ -61,7 +61,7 @@ under the License.
 		<dependency>
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-connector-cassandra_2.11</artifactId>
-			<version>1.12.0</version>
+			<version>${flink.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
@@ -74,6 +74,11 @@ under the License.
 			<artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
 			<version>${flink.version}</version>
 			<scope>compiled</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-streaming-scala_2.11</artifactId>
+			<version>${flink.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
@@ -115,11 +120,10 @@ under the License.
 		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-core</artifactId>
-			<version>1.11.2</version>
+			<artifactId>flink-java</artifactId>
+			<version>${flink.version}</version>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 

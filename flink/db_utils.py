@@ -16,20 +16,32 @@ class CassandraDb:
 
     def create_keyspace(self, keyspace ):
 
+        '''create a keyspace'''
         query = "CREATE KEYSPACE "+keyspace+" WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 3};"
 
         self.session.execute( query )
 
-    def create_table( self, keyspace, table, fields ):
-
+    def create_table( self, keyspace, table, schema ):
+        '''
+            This function will create a table within a given keyspace
+            fields: parameter represent the table schema
+        '''
         self.session.execute('USE {};'.format( keyspace ) )
 
-        create_table_query = 'CREATE TABLE {} ({});'.format( table, ','.join(fields) )
+        fields = ','.join([k + " " + v for k,v in schema.items()])
+
+        create_table_query = 'CREATE TABLE {} ({});'.format( table, fields )
 
         self.session.execute( create_table_query )
 
     # insert a batch of data inside a table
-    def insert_batch_data(self, data, table):
+    def insert_batch_data(self, data, keyspace, table):
+
+        '''
+            insert a batch of records
+        '''
+
+        self.session.execute('USE {};'.format( keyspace ) )
 
         for i, row in enumerate( data ):
 
@@ -49,6 +61,7 @@ class CassandraDb:
 
     def read_table( self, keyspace, table, fields=[]):
 
+        ''' read data from an input table'''
         self.session.execute('USE {};'.format( keyspace ) )
 
         if len( fields ) == 0:
@@ -64,6 +77,7 @@ class CassandraDb:
 
     def alter_table( self, keyspace, tablename, col, coltype ):
 
+        ''' add column to an exising table'''
         self.session.execute('USE {};'.format( keyspace ) )
 
         alter_query = 'ALTER TABLE {} ADD {} {};'.format(tablename, col, coltype)
@@ -72,6 +86,7 @@ class CassandraDb:
 
     def update_records( self, keyspace, table_name, ids, col, new_vals):
 
+        ''' update a single value for a batch of records '''
         self.session.execute('USE {};'.format( keyspace ) )
 
         for id, new_val in zip( ids, new_vals ):
