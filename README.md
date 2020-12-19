@@ -58,24 +58,6 @@ Microservices:
 ### Routines
 
 
-## api 
-API and the Extensible Service Proxy (ESP) run in prebuilt Docker containers on GCP Compute Engine.
-
-## ml-kit microservice
-TBD
-
-## spark microservice
-TBD
-
-## flink microservice
-TBD
-
-## mongodb microservice
-TBD
-
-## cassandra microservice
-TBD
-
 
 # Application High-Level Diagram 
 ![Application Diagram](service_diagram/OST-SM.jpg) 
@@ -116,6 +98,7 @@ $ cat ~/.ssh/id_rsa.pub
 #### Using native Terminal and SSH client  
 ```bash
 $ ssh username@instance-ip-address
+e.g.:
 $ ssh macbook@35.246.102.21 
 ``` 
 
