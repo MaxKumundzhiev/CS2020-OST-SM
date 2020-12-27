@@ -1,0 +1,34 @@
+version: '3'
+services:
+  nifi:
+    image: apache/nifi:latest
+    container_name: nifi
+    ports:
+      # HTTP
+      - 9090:8080/tcp
+      # HTTPS
+      - 8443:8443/tcp
+      # Remote Input Socket
+      - 10000:10000/tcp
+      # JVM Debugger
+      - 8050:8000/tcp
+      # Cluster Node Protocol
+      #- 11443:11443/tcp
+    volumes:
+      # mkdir /srv/nifi && chown -R 1000:1000 /srv/nifi   
+      #chnages the chmod -R 777 /srv/nifi
+      - /srv/nifi/database_repository:/opt/nifi/nifi-current/database_repository
+      - /srv/nifi/flowfile_repository:/opt/nifi/nifi-current/flowfile_repository
+      - /srv/nifi/content_repository:/opt/nifi/nifi-current/content_repository
+      - /srv/nifi/provenance_repository:/opt/nifi/nifi-current/provenance_repository
+      - /srv/nifi/state:/opt/nifi/nifi-current/state
+      - /srv/nifi/logs:/opt/nifi/nifi-current/logs
+      # copy any config folder as the empty will result an error.
+      - /srv/nifi/conf:/opt/nifi/nifi-current/conf
+      - /srv/nifi/ls-target:/opt/nifi/nifi-current/ls-target
+      #this is a data mapping
+      - /srv/nifi/data:/opt/data
+    networks:
+      - data-network      
+Networks:
+  data-network:

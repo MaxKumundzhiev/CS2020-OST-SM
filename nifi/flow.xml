@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flowController encoding-version="1.4">
+  <maxTimerDrivenThreadCount>10</maxTimerDrivenThreadCount>
+  <maxEventDrivenThreadCount>1</maxEventDrivenThreadCount>
+  <registries/>
+  <parameterContexts/>
+  <rootGroup>
+    <id>5c2c2157-0176-1000-d1cd-a4a5f6b984e9</id>
+    <name>NiFi Flow</name>
+    <position x="0.0" y="0.0"/>
+    <comment/>
+    <flowfileConcurrency>UNBOUNDED</flowfileConcurrency>
+    <flowfileOutboundPolicy>STREAM_WHEN_AVAILABLE</flowfileOutboundPolicy>
+    <processGroup>
+      <id>5d26382e-0176-1000-3a24-70b6b0146e59</id>
+      <name>OST</name>
+      <position x="532.0" y="186.0"/>
+      <comment/>
+      <flowfileConcurrency>UNBOUNDED</flowfileConcurrency>
+      <flowfileOutboundPolicy>STREAM_WHEN_AVAILABLE</flowfileOutboundPolicy>
+      <processor>
+        <id>5d82acac-0176-1000-fb2c-f17db527b95d</id>
+        <name>PutMongo</name>
+        <position x="536.0" y="448.0"/>
+        <styles/>
+        <comment/>
+        <class>org.apache.nifi.processors.mongodb.PutMongo</class>
+        <bundle>
+          <group>org.apache.nifi</group>
+          <artifact>nifi-mongodb-nar</artifact>
+          <version>1.12.1</version>
+        </bundle>
+        <maxConcurrentTasks>1</maxConcurrentTasks>
+        <schedulingPeriod>0 sec</schedulingPeriod>
+        <penalizationPeriod>30 sec</penalizationPeriod>
+        <yieldPeriod>1 sec</yieldPeriod>
+        <bulletinLevel>WARN</bulletinLevel>
+        <lossTolerant>false</lossTolerant>
+        <scheduledState>STOPPED</scheduledState>
+        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+        <executionNode>ALL</executionNode>
+        <runDurationNanos>0</runDurationNanos>
+        <property>
+          <name>mongo-client-service</name>
+        </property>
+        <property>
+          <name>Mongo URI</name>
+          <value>mongodb://admin:admin@35.192.60.168:27017/OST</value>
+        </property>
+        <property>
+          <name>Mongo Database Name</name>
+          <value>OST</value>
+        </property>
+        <property>
+          <name>Mongo Collection Name</name>
+          <value>cisco</value>
+        </property>
+        <property>
+          <name>ssl-context-service</name>
+        </property>
+        <property>
+          <name>ssl-client-auth</name>
+          <value>REQUIRED</value>
+        </property>
+        <property>
+          <name>Mode</name>
+          <value>insert</value>
+        </property>
+        <property>
+          <name>Upsert</name>
+          <value>false</value>
+        </property>
+        <property>
+          <name>Update Query Key</name>
+        </property>
+        <property>
+          <name>putmongo-update-query</name>
+        </property>
+        <property>
+          <name>put-mongo-update-mode</name>
+          <value>doc</value>
+        </property>
+        <property>
+          <name>Write Concern</name>
+          <value>ACKNOWLEDGED</value>
+        </property>
+        <property>
+          <name>Character Set</name>
+          <value>UTF-8</value>
+        </property>
+        <autoTerminatedRelationship>success</autoTerminatedRelationship>
+        <autoTerminatedRelationship>failure</autoTerminatedRelationship>
+      </processor>
+      <processor>
+        <id>5e80f8f5-0176-1000-29b8-f9ff43f8c9ed</id>
+        <name>SplitText</name>
+        <position x="1152.0" y="288.0"/>
+        <styles/>
+        <comment/>
+        <class>org.apache.nifi.processors.standard.SplitText</class>
+        <bundle>
+          <group>org.apache.nifi</group>
+          <artifact>nifi-standard-nar</artifact>
+          <version>1.12.1</version>
+        </bundle>
+        <maxConcurrentTasks>1</maxConcurrentTasks>
+        <schedulingPeriod>0 sec</schedulingPeriod>
+        <penalizationPeriod>30 sec</penalizationPeriod>
+        <yieldPeriod>1 sec</yieldPeriod>
+        <bulletinLevel>WARN</bulletinLevel>
+        <lossTolerant>false</lossTolerant>
+        <scheduledState>STOPPED</scheduledState>
+        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+        <executionNode>ALL</executionNode>
+        <runDurationNanos>0</runDurationNanos>
+        <property>
+          <name>Line Split Count</name>
+          <value>1</value>
+        </property>
+        <property>
+          <name>Maximum Fragment Size</name>
+        </property>
+        <property>
+          <name>Header Line Count</name>
+          <value>0</value>
+        </property>
+        <property>
+          <name>Header Line Marker Characters</name>
+        </property>
+        <property>
+          <name>Remove Trailing Newlines</name>
+          <value>true</value>
+        </property>
+        <autoTerminatedRelationship>failure</autoTerminatedRelationship>
+        <autoTerminatedRelationship>original</autoTerminatedRelationship>
+      </processor>
+      <processor>
+        <id>5d26b5ad-0176-1000-f557-e2f884775cff</id>
+        <name>GetFile</name>
+        <position x="568.0" y="96.0"/>
+        <styles/>
+        <comment/>
+        <class>org.apache.nifi.processors.standard.GetFile</class>
+        <bundle>
+          <group>org.apache.nifi</group>
+          <artifact>nifi-standard-nar</artifact>
+          <version>1.12.1</version>
+        </bundle>
+        <maxConcurrentTasks>1</maxConcurrentTasks>
+        <schedulingPeriod>0 sec</schedulingPeriod>
+        <penalizationPeriod>30 sec</penalizationPeriod>
+        <yieldPeriod>1 sec</yieldPeriod>
+        <bulletinLevel>WARN</bulletinLevel>
+        <lossTolerant>false</lossTolerant>
+        <scheduledState>STOPPED</scheduledState>
+        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+        <executionNode>ALL</executionNode>
+        <runDurationNanos>0</runDurationNanos>
+        <property>
+          <name>Input Directory</name>
+          <value>/opt/data/</value>
+        </property>
+        <property>
+          <name>File Filter</name>
+          <value>[^\.].*</value>
+        </property>
+        <property>
+          <name>Path Filter</name>
+        </property>
+        <property>
+          <name>Batch Size</name>
+          <value>10</value>
+        </property>
+        <property>
+          <name>Keep Source File</name>
+          <value>false</value>
+        </property>
+        <property>
+          <name>Recurse Subdirectories</name>
+          <value>true</value>
+        </property>
+        <property>
+          <name>Polling Interval</name>
+          <value>0 sec</value>
+        </property>
+        <property>
+          <name>Ignore Hidden Files</name>
+          <value>true</value>
+        </property>
+        <property>
+          <name>Minimum File Age</name>
+          <value>30 sec</value>
+        </property>
+        <property>
+          <name>Maximum File Age</name>
+        </property>
+        <property>
+          <name>Minimum File Size</name>
+          <value>0 B</value>
+        </property>
+        <property>
+          <name>Maximum File Size</name>
+        </property>
+      </processor>
+      <connection>
+        <id>5ebd12d5-0176-1000-1c7e-7053cd0a4a54</id>
+        <name/>
+        <bendPoints/>
+        <labelIndex>1</labelIndex>
+        <zIndex>0</zIndex>
+        <sourceId>5e80f8f5-0176-1000-29b8-f9ff43f8c9ed</sourceId>
+        <sourceGroupId>5d26382e-0176-1000-3a24-70b6b0146e59</sourceGroupId>
+        <sourceType>PROCESSOR</sourceType>
+        <destinationId>5d82acac-0176-1000-fb2c-f17db527b95d</destinationId>
+        <destinationGroupId>5d26382e-0176-1000-3a24-70b6b0146e59</destinationGroupId>
+        <destinationType>PROCESSOR</destinationType>
+        <relationship>splits</relationship>
+        <maxWorkQueueSize>10000</maxWorkQueueSize>
+        <maxWorkQueueDataSize>1 GB</maxWorkQueueDataSize>
+        <flowFileExpiration>0 sec</flowFileExpiration>
+        <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+        <partitioningAttribute/>
+        <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+      </connection>
+      <connection>
+        <id>5e81a43f-0176-1000-2155-b20c3a49445f</id>
+        <name/>
+        <bendPoints/>
+        <labelIndex>1</labelIndex>
+        <zIndex>0</zIndex>
+        <sourceId>5d26b5ad-0176-1000-f557-e2f884775cff</sourceId>
+        <sourceGroupId>5d26382e-0176-1000-3a24-70b6b0146e59</sourceGroupId>
+        <sourceType>PROCESSOR</sourceType>
+        <destinationId>5e80f8f5-0176-1000-29b8-f9ff43f8c9ed</destinationId>
+        <destinationGroupId>5d26382e-0176-1000-3a24-70b6b0146e59</destinationGroupId>
+        <destinationType>PROCESSOR</destinationType>
+        <relationship>success</relationship>
+        <maxWorkQueueSize>10000</maxWorkQueueSize>
+        <maxWorkQueueDataSize>1 GB</maxWorkQueueDataSize>
+        <flowFileExpiration>0 sec</flowFileExpiration>
+        <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+        <partitioningAttribute/>
+        <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+      </connection>
+    </processGroup>
+  </rootGroup>
+  <controllerServices/>
+  <reportingTasks/>
+</flowController>

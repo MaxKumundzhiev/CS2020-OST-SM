@@ -1,0 +1,6 @@
+# This is the commands and configuration for the nifi docker image.
+
+sudo yum install docker-compose 
+sudo docker-compose run -d
+
+# the flow.xml and flow.xml.gz are the store for the image in the same directory
