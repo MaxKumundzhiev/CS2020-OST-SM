@@ -3,7 +3,7 @@ package ost_sm_2020_proj;
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.json.JSONObject;
 
-public class DataFlowFilter implements FilterFunction<JSONObject> {
+public class PortFilter implements FilterFunction<JSONObject> {
 
     @Override
     public boolean filter(JSONObject flow) throws Exception {

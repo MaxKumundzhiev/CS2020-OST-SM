@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# .idea
+flink/flink-app/ost_sm_proj_2020/.idea

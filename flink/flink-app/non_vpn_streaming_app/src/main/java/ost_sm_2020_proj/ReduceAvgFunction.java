@@ -1,12 +1,11 @@
 package ost_sm_2020_proj;
 
-import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
-import org.apache.flink.util.Collector;
-import org.json.JSONObject;
 
 public class ReduceAvgFunction implements ReduceFunction<Tuple2<Integer, Double>> {
+
+    private Integer counter = 0;
 
     @Override
     public Tuple2<Integer, Double> reduce(Tuple2<Integer, Double> flow1,

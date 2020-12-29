@@ -19,18 +19,18 @@ public class Main {
         // Transformation #1
         // number of flows grouped by the label
 
-        DataStream<Tuple2<String, Integer>> flowsType = dataStream
+        DataStream<Tuple2<String, Integer>> flowsCounter = dataStream
                 .flatMap(new DataFlowTypeSplitter())
                 .keyBy(flow -> flow.f0)
                 .sum(1);
 
-        flowsType.print();
+        flowsCounter.print();
 
         // Transformation #2
         // average # of bytes sent to http or dns application every 5 seconds
 
         DataStream<Tuple2<Integer, Double>> httpDnsFlows = dataStream
-                .filter(new DataFlowFilter())
+                .filter(new PortFilter())
                 .map(new DataFlowMapFunction())
                 .keyBy(flow -> flow.f0)
                 .window(TumblingProcessingTimeWindows.of(Time.seconds(5)))
