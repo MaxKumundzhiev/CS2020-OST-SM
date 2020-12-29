@@ -15,4 +15,5 @@
     <li>It filters the incoming flows based on destination port number, and keep only http and dns related flows</li>
     <li>It applies a Time windowing aggregation to calculate the avg # of incoming bytes during 5 seconds</li>
   </ul>
+  <li>The results of both transformations are dumped to a Cassandra Database sink for further processing...</li>
 </ul>
