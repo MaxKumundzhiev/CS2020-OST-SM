@@ -14,6 +14,4 @@ if __name__ == '__main__':
 
     db = CassandraDb(config["ip_addr"], config["port"])
 
-    bytes_in_avg_db_schema = config['bytes_in_avg_db_schema']
-
-    db.create_table(config['keyspace'], 'bytes_in_avg_sink',bytes_in_avg_db_schema)
+    db.export_table_to_csv(config['keyspace'], 'bytes_in_avg_sink', ['id', 'dst_port', 'bytes_in_avg'])

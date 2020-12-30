@@ -1,6 +1,7 @@
 from cassandra.cluster import Cluster
 from cassandra import ConsistencyLevel
 from cassandra.query import SimpleStatement, dict_factory
+import csv
 
 class CassandraDb:
 
@@ -94,3 +95,14 @@ class CassandraDb:
             update_query = 'UPDATE {} SET {}={} WHERE id={}'.format( table_name, col, "'"+new_val+"'", id)
 
             self.session.execute(update_query)
+    def export_table_to_csv(self, keyspace, table_name, fields=[]):
+
+        data = self.read_table(keyspace, table_name)
+
+        with open('{}.csv'.format(table_name), 'w') as f:
+            writer = csv.DictWriter(f, fieldnames=fields)
+
+            writer.writeheader()
+
+            for row in data:
+                writer.writerow(row)
