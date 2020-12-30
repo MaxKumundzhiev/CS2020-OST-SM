@@ -26,9 +26,14 @@ public class Main {
 
         flowsCounter.print();
 
+        CassandraSink.addSink( flowsCounter )
+                .setQuery("INSERT INTO ost_sm_2020.flows_count_sink (label, count) VALUES(?, ?)")
+                .setHost("127.0.0.1")
+                .build();
+
         // Transformation #2
         // average # of bytes sent to http or dns application every 5 seconds
-
+/*
         DataStream<Tuple2<Integer, Double>> httpDnsFlows = dataStream
                 .filter(new PortFilter())
                 .map(new DataFlowMapFunction())
@@ -39,11 +44,10 @@ public class Main {
         httpDnsFlows.print();
 
         CassandraSink.addSink( httpDnsFlows )
-                .setQuery("INSERT INTO ost_sm_2020.bytes_in_avg_sink (dst_port, bytes_in_avg) VALUES(?, ?)")
+                .setQuery("INSERT INTO ost_sm_2020.bytes_in_avg_sink (id, dst_port, bytes_in_avg) VALUES(now(), ?, ?)")
                 .setHost("127.0.0.1")
                 .build();
-        // TODO...
-
+*/
         env.execute("FilterStrings");
     }
 }
