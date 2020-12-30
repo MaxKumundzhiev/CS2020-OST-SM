@@ -1,5 +1,5 @@
 <h1>Streaming Pipeline for Non-vpn2016 Using Cassandra Database as a storage and flink as streaming environment</h1>
-<img width="300" height="300" src="Flink-Workflow.png" alt="Flink workflow" title="Flink Workflow" />
+<img width="800" height="800" src="Flink-Workflow.png" alt="Flink workflow" title="Flink Workflow" />
 <h2>The system comprises the following components</h2>
 <ul>
   <li>
