@@ -72,5 +72,10 @@ config = {
                 'dst_port':'int',
                 'bytes_in_avg':'double',
                 'PRIMARY KEY':'(dst_port, bytes_in_avg)'
+    },
+    'flows_count_db_schema':{
+        'label': 'text',
+        'count': 'bigint',
+        'PRIMARY KEY':'label'
     }
 }

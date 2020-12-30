@@ -30,7 +30,7 @@ class CassandraDb:
 
         fields = ','.join([k + " " + v for k,v in schema.items()])
 
-        create_table_query = 'CREATE TABLE {} ({});'.format( table, fields )
+        create_table_query = 'CREATE TABLE IF NOT EXISTS {} ({});'.format( table, fields )
 
         self.session.execute( create_table_query )
 
