@@ -21,5 +21,3 @@ Stop container:
 $ docker stop <container name>
 
 ```
-
-Once you done wit
