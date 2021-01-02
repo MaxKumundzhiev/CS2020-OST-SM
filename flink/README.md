@@ -18,3 +18,28 @@
   </ul>
   <li>The results of both transformations are dumped to a Cassandra Database sink for further processing...</li>
 </ul>
+
+## How to run the demo
+
+1. you should have a running Cassandra server on your local machine, or somewhere on the internet
+
+2. The data is being served from a streaming microservice inside api folder
+
+### inside a terminal, install the following packages (It is highly recommended to create an isolated conda environment for that)
+
+'''
+  pip install uvicorn fastapi cassandra-driver
+'''
+### inside the microservice streaming service:
+
+'''
+  uvicorn main:app --reload --port preferred-port-number (optional)
+'''
+
+### open the flink app inside your favourite IDE (Intellij is highly recommended)
+
+### make sure you have a valid Java Development Kit installed on your machine
+
+### Run the main Java Class
+
+### The results will be dumped to a Cassandra Sink
