@@ -210,7 +210,7 @@ def read_dataset(datasetFolderName, annotationFileName=None, class_label_pairs=N
 
 def get_training_data(training_set_foldername, anno_file_name):
     # Read training set from json files
-    print ("\nLoading training set ...")
+    print("\nLoading training set ...")
     training_feature_names, ids, training_data, training_label, training_class_label_pair = read_dataset (
         training_set_foldername, anno_file_name, class_label_pairs=None)
 
