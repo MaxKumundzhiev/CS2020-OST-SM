@@ -21,7 +21,7 @@
 
 ## How to run the demo
 
-1. ### you should have a running Cassandra server on your local machine, or somewhere on the internet
+1. ### Please refer to CassandraDb folder for instructions on how to install apache cassandra
 
 2. ### The data is being served from a streaming microservice inside api folder
 
