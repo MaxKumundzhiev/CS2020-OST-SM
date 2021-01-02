@@ -40,5 +40,5 @@
   In addition to classification models, we trained a Vanilla Generative Adversarial Network on the aforementioned data set. We can clearly monitor how the discriminator and generator
   losses are converging indicating that the discriminator cannot distinguish between real and fake outputs.
 </p>
-<img width="800" height="800" src="Vanilla GAN - Non VPN.png" alt="Flink workflow" title="Flink Workflow" />
+<img width="500" height="500" src="Vanilla GAN - Non VPN.png" alt="Flink workflow" title="Flink Workflow" />
 <p>The generator model in the most basic test case can be used to generate synthetic data from any class using it in inference mode after passing the preferred class label</p>
