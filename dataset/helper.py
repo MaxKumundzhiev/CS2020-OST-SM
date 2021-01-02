@@ -18,6 +18,7 @@ import scipy.stats
 
 from sklearn import metrics
 from sklearn.utils.multiclass import unique_labels
+from dataset.configurations import LOGGER
 
 
 def encode_label(labels, class_label_pairs=None):
@@ -167,8 +168,8 @@ def read_dataset(datasetFolderName, annotationFileName=None, class_label_pairs=N
 
     for root, dirs, files in os.walk (datasetFolderName):
         for f in files:
-            if f.endswith ((".json.gz")):
-                print ("Reading {}".format (f))
+            if f.endswith((".json.gz")):
+                LOGGER.info(f"Reading {f}")
                 # try:
                 d, ids, f_names = read_json_gz (os.path.join (root, f))
                 # except:
@@ -210,8 +211,8 @@ def read_dataset(datasetFolderName, annotationFileName=None, class_label_pairs=N
 
 def get_training_data(training_set_foldername, anno_file_name):
     # Read training set from json files
-    print("\nLoading training set ...")
-    training_feature_names, ids, training_data, training_label, training_class_label_pair = read_dataset (
+    LOGGER.info("\nLoading training set ...")
+    training_feature_names, ids, training_data, training_label, training_class_label_pair = read_dataset(
         training_set_foldername, anno_file_name, class_label_pairs=None)
 
     # Convert np.array to dataframe for easy manipulations

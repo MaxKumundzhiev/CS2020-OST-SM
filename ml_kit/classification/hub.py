@@ -7,7 +7,7 @@
 # github: https://github.com/KumundzhievMaxim
 # -------------------------------------------
 
-from mk_kit.configurations import LOGGER
+from ml_kit.configurations import LOGGER
 
 
 class Hub:

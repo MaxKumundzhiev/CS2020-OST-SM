@@ -7,11 +7,12 @@
 # github: https://github.com/KumundzhievMaxim
 # -------------------------------------------
 
-
+import os
+import time
 import argparse
 
-from dataset.utils import *
-from dataset.configurations import LOGGER, TRAIN_CICI, TRAIN_VPN, TRAIN_NET
+from dataset.helper import *
+from dataset.configurations import LOGGER
 
 
 def main():
@@ -37,11 +38,23 @@ def main():
         training_annotation = args.dataset + "/2_training_annotations/2_training_anno_" + args.annotation + ".json.gz"
         test_set = args.dataset + "/1_test-std_set"
         challenge_set = args.dataset + "/0_test-challenge_set"
-        LOGGER.info(f'Process dataset: {args.dataset.split("/")[-1]}')
+
+        dataset_name = args.dataset.split("/")[-1]
+        LOGGER.info(f'Process dataset: {dataset_name}')
         LOGGER.info(f'Training set path: {training_set}')
         LOGGER.info(f'Test set path: {test_set}')
         LOGGER.info(f'Training annotation path: {training_annotation}')
         LOGGER.info(f'Challenge set path: {challenge_set}')
+
+    # save_dir = os.getcwd() + '/results/' + dataset_name
+    # os.makedirs(save_dir)
+
+    LOGGER.info(f'Retrieving dataset: {dataset_name}')
+    X_train, y_train, class_label_pair, X_train_ids = get_training_data(training_set, training_annotation)
+    print(X_train)
+    print(y_train)
+    print(class_label_pair)
+    print(X_train_ids)
 
 
 if __name__ == "__main__":
