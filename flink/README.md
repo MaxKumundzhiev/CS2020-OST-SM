@@ -25,9 +25,6 @@
 
 2. ### The data is being served from a streaming microservice inside api folder
 
-#### Note that for performance enhancement. The data is being loaded from Cassandra Database into memory (to avoid slow hard disk I/O later)
-####  when the application starts. In this way, you have to statically define the partitions names from which the data will be served inside the streaming api main file.
-
 ### inside a terminal, install the following packages (It is highly recommended to create an isolated conda environment for that)
 
 ```
@@ -38,6 +35,7 @@
 ```
   uvicorn main:app --reload --port preferred-port-number (optional)
 ```
+#### Note that for performance enhancement. The data is being loaded from Cassandra Database into memory (to avoid slow hard disk I/O later) when the application starts. In this way, you have to statically define the partitions names from which the data will be served inside the streaming api main file.
 
 3. ### open the flink app inside your favourite IDE (Intellij is highly recommended)
 
