@@ -9,12 +9,15 @@
 #### flink application has a custom data source that reads the data from the streaming api and transforms it into a JSON Object</li>
 
 ## Inside the flink application. We performed the following two transformations
-#### First transformation counts the number of each data flow type (chat, P2P,...)
-#### Second transformation calculates the average # of incoming bytes to a http or dns app in a time window of 5 seconds. It has two processing steps
+
+### First transformation counts the number of each data flow type (chat, P2P,...)
+
+### Second transformation calculates the average # of incoming bytes to a http or dns app in a time window of 5 seconds. It has two processing steps
+
 #### It filters the incoming flows based on destination port number, and keep only http and dns related flows
 #### It applies a Time windowing aggregation to calculate the avg # of incoming bytes during 5 seconds
 
-#### The results of both transformations are dumped to a Cassandra Database sink for further processing...
+### The results of both transformations are dumped to a Cassandra Database sink for further processing...
 
 ## How to run the demo
 
