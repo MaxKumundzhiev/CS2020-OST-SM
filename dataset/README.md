@@ -11,13 +11,13 @@ The module allows to retrieve and transform data at target format.
 
 where:
 - CLASS_LABEL_PAIR - denotes particular task target pair of class and value
-`e.g.: {"benign": 0, "malware": 1}`
+   -  `e.g.: {"benign": 0, "malware": 1}` 
+
 - TRAIN_IDS - denotes particular task target list of ids
-`e.g.: [5665772, 3745782, 6111057, 9812453, 8279555, 6418585, 1387558, ... , 1387634]`
+   -  `e.g.: [5665772, 3745782, 6111057, 9812453, 8279555, 6418585, 1387558, ... , 1387634]`
 - TRAIN_DATA - denotes particular task target set of features  
-`e.g.: columns: [feature_1, feature_2, feature_3, ... , feature_4]`
-<br>
-`e.g.: row: [value_1, value_2, value_3, ... , value_4]`
+   - `e.g.: columns: [feature_1, feature_2, feature_3, ... , feature_4]`
+   - `e.g.: row: [value_1, value_2, value_3, ... , value_4]`
 
 # Requirements
 It is assumed user have already fetched github repository and accomplished step `0` described in main readme.    
