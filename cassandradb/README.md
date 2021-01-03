@@ -1,13 +1,13 @@
 # Deploying Cassandra Database on windows
 
-## Download and install Java development kit 8+
-## Download and extract cassandra .tar file https://www.apache.org/dyn/closer.lua/cassandra/3.0.23/apache-cassandra-3.0.23-bin.tar.gz 
-## Navigate to bin folder inside cassandra folder
-## Run the command
+#### Download and install Java development kit 8+
+#### Download and extract cassandra .tar file https://www.apache.org/dyn/closer.lua/cassandra/3.0.23/apache-cassandra-3.0.23-bin.tar.gz 
+#### Navigate to bin folder inside cassandra folder
+#### Run the command
 ```
 cassandra.bat
 ```
-## Cassandra provides CQL, a querying language that resembles to a large extent the traditional SQL. To usel CQL, run the command inside bin folder
+#### Cassandra provides CQL, a querying language that resembles to a large extent the traditional SQL. To usel CQL, run the command inside bin folder
 ```
 cqlsh
 ```
