@@ -1,18 +1,18 @@
-<h1>Cassandra Database Storage part</h1>
-### please refer to https://cassandra.apache.org/doc/latest/getting_started/installing.html for information on how to install cassandra database
-<ul>
-  <li>
-    #### json_utils script file contains methods for parsing json files either line by line or in a batch fashion
-  </li>
-  <li>
-    ### db_utils script exposes CassandraDb class which supports operations like creating a keyspace, creating partitions or tables inside a keyspace,insert a batch of json    records inside an existing partition, querying an existing partition, and last but least updating a batch of records...
-  </li>
-  <li>
-    ### Cassandra connection parameters (ip address, port), and some partitions schemas are pre-defined inside config.py script
-  </li>
-</ul>
+# Deploying Cassandra Database on windows
 
-## Specific for flink part !!!!!
+## Download and install Java development kit 8+
+## Download and extract cassandra .tar file https://www.apache.org/dyn/closer.lua/cassandra/3.0.23/apache-cassandra-3.0.23-bin.tar.gz 
+## Navigate to bin folder inside cassandra folder
+## Run the command
+```
+cassandra.bat
+```
+## Cassandra provides CQL, a querying language that resembles to a large extent the traditional SQL. To usel CQL, run the command inside bin folder
+```
+cqlsh
+```
+
+## How to use the API
 
 #### initialize a CassandraDb Class
 ```
