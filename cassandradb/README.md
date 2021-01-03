@@ -12,6 +12,11 @@ cassandra.bat
 cqlsh
 ```
 
+## We used Cassandra for storing
+
+#### non-vpn2016 dataset 
+#### the results of the transformations inside flink app
+
 ## How to use the API
 
 #### initialize a CassandraDb Class
