@@ -1,5 +1,7 @@
 # Streaming Pipeline for Non-vpn2016 Using Cassandra Database as a storage and flink as streaming environment
+
 <img width="800" height="800" src="Flink-Workflow.png" alt="Flink workflow" title="Flink Workflow" />
+
 ## The system comprises the following components
 
 #### Cassandra Database instance
