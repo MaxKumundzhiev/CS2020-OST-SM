@@ -21,25 +21,26 @@
 
 ## How to run the demo
 
-1. you should have a running Cassandra server on your local machine, or somewhere on the internet
+1. ### Please refer to CassandraDb folder for instructions on how to install apache cassandra
 
-2. The data is being served from a streaming microservice inside api folder
+2. ### The data is being served from a streaming microservice inside api folder
 
 ### inside a terminal, install the following packages (It is highly recommended to create an isolated conda environment for that)
 
-'''
+```
   pip install uvicorn fastapi cassandra-driver
-'''
+```
 ### inside the microservice streaming service:
 
-'''
+```
   uvicorn main:app --reload --port preferred-port-number (optional)
-'''
+```
+#### Note that for performance enhancement. The data is being loaded from Cassandra Database into memory (to avoid slow hard disk I/O later) when the application starts. In this way, you have to statically define the partitions names from which the data will be served inside the streaming api main file.
 
-### open the flink app inside your favourite IDE (Intellij is highly recommended)
+3. ### open the flink app inside your favourite IDE (Intellij is highly recommended)
 
-### make sure you have a valid Java Development Kit installed on your machine
+4. ### make sure you have a valid Java Development Kit installed on your machine
 
-### Run the main Java Class
+5. ### Run the main Java Class
 
-### The results will be dumped to a Cassandra Sink
+6. ### The results will be dumped to a Cassandra Sink
