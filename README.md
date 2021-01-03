@@ -42,6 +42,8 @@ $ pip install -r reqirements.txt
 1. Retrieve and transform 3 source datasets
 - Navigate to "dataset" module and follow described steps  
 
+2. Preprocess and Select Features of 3 transformed datasets
+- Navigate to "spark" module and follow described steps
 ```
 
 

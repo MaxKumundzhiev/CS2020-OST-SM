@@ -24,20 +24,23 @@ from spark.utils.factory import Factory, Transformer, Visualiser
 3. Visualise transformations/feature_importance [Class Visualiser]       
 """
 
+import pyspark
+import argparse
+
 
 class Reader(Factory):
     def read_data(self):
         pass
 
 
-with open(TRAIN_VPN, 'rb') as f:
-    data = f.readlines()
-
-from pyspark.sql.functions import *
-import pyspark
+def main():
+    parser = argparse.ArgumentParser(description="Spark entry point", add_help=True)
+    parser.add_argument('-d', '--dataset', action="store", help="target dataset path")
 
 
-rawDF = pyspark.read.json("<PATH_to_JSON_File>", multiLine = "true")
+if __name__ == "__main__":
+    pass
+    pyspark.read.json("<PATH_to_JSON_File>", multiLine = "true")
 
 
 

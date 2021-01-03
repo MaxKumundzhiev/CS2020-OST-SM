@@ -16,7 +16,7 @@ from dataset.configurations import LOGGER
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Data Handler", add_help=True)
+    parser = argparse.ArgumentParser(description="Data handler entry point", add_help=True)
     parser.add_argument('-d', '--dataset', action="store", help="dataset path")
     parser.add_argument('-a', '--annotation', action="store", help="annotation level: {top, mid, fine}")
 

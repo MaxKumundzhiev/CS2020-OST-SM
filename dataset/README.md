@@ -2,10 +2,10 @@
 **It is entrypoint of the OST-SM application.**  
 The module allows to retrieve and transform data at target format.
 
-**data target format**
+**Data target format**
 * results
-  * DATASET NAME
-    * TRAIN_DATA.CSV
+  * DATASET_NAME_ANNOTATION_LEVEL
+    * TRAIN_DATA.csv
     * CLASS_LABEL_PAIR.json
     * TRAIN_IDS.json 
 
