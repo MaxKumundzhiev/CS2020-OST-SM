@@ -11,7 +11,8 @@ from abc import ABC
 
 
 class Factory(ABC):
-    def read_data(self):
+    @staticmethod
+    def read_data(target_path):
         """read any data"""
         pass
 
