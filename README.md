@@ -33,6 +33,18 @@ $ git checkout user-{your_number}
 ```
 
 
+## Steps supposed to be executed
+```bash
+0. Prepare environment to work with
+$ conda create -n {environment_name} python=3.8 -y && conda activate {environment_name}
+$ pip install -r reqirements.txt 
+
+1. Retrieve and transform 3 source datasets
+- Navigate to "dataset" module and follow described steps  
+
+```
+
+
 ## Application Description
 ### Application Propose
 The application propose is the provision of 3 classification pre-trained on real-world data models which enables to predict 3 different types of targets.
@@ -57,24 +69,6 @@ Microservices:
 
 ### Routines
 
-
-## api 
-API and the Extensible Service Proxy (ESP) run in prebuilt Docker containers on GCP Compute Engine.
-
-## ml-kit microservice
-TBD
-
-## spark microservice
-TBD
-
-## flink microservice
-TBD
-
-## mongodb microservice
-TBD
-
-## cassandra microservice
-TBD
 
 
 # Application High-Level Diagram 
@@ -116,6 +110,7 @@ $ cat ~/.ssh/id_rsa.pub
 #### Using native Terminal and SSH client  
 ```bash
 $ ssh username@instance-ip-address
+e.g.:
 $ ssh macbook@35.246.102.21 
 ``` 
 
