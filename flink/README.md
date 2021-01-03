@@ -25,6 +25,9 @@
 
 2. ### The data is being served from a streaming microservice inside api folder
 
+2. 1. ### Note that for performance enhancement. The data is being loaded from Cassandra Database into memory (to avoid slow hard disk I/O later)
+  when the application starts. In this way, you have to statically define the partitions names from which the data will be served inside the streaming api main file.
+
 ### inside a terminal, install the following packages (It is highly recommended to create an isolated conda environment for that)
 
 ```
