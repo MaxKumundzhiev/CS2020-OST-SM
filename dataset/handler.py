@@ -46,15 +46,13 @@ def main():
         LOGGER.info(f'Training annotation path: {training_annotation}')
         LOGGER.info(f'Challenge set path: {challenge_set}')
 
-    # save_dir = os.getcwd() + '/results/' + dataset_name
-    # os.makedirs(save_dir)
-
     LOGGER.info(f'Retrieving dataset: {dataset_name}')
     X_train, y_train, class_label_pair, X_train_ids = get_training_data(training_set, training_annotation)
-    print(X_train)
-    print(y_train)
-    print(class_label_pair)
-    print(X_train_ids)
+
+    save_dir = os.getcwd() + '/results/' + dataset_name + f'_{args.annotation}'
+    os.makedirs(save_dir, exist_ok=True)
+
+    save(X_train, y_train, class_label_pair, X_train_ids, save_dir)
 
 
 if __name__ == "__main__":

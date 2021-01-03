@@ -43,3 +43,4 @@ $ docker-compose -f docker-compose.kafka.yml exec broker kafka-console-consumer 
 to observe filtered by detector fraud transactions (--topic streaming.transactions.fraud)
 $ docker-compose -f docker-compose.kafka.yml exec broker kafka-console-consumer --bootstrap-server localhost:9092 --topic streaming.transactions.fraud
 ```
+

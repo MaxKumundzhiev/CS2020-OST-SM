@@ -21,6 +21,20 @@ from sklearn.utils.multiclass import unique_labels
 from dataset.configurations import LOGGER
 
 
+def save(X_train, y_train, class_label_pair, X_train_ids, save_dir):
+    X_train['y'] = y_train
+    X_train.to_csv(f'{save_dir}/X_train.csv')
+    LOGGER.info(f'Write X_train.csv to: {save_dir}')
+
+    with open(f'{save_dir}/class_label_pair.json', 'w') as j:
+        json.dump(class_label_pair, j)
+    LOGGER.info(f'Write Class Label Pair to: {save_dir}')
+
+    with open(f'{save_dir}/train_ids.json', 'w') as j:
+        json.dump(X_train_ids, j)
+    LOGGER.info(f'Write X_train ids to: {save_dir}')
+
+
 def encode_label(labels, class_label_pairs=None):
     unique_labels = []
     label_list = []
@@ -216,12 +230,12 @@ def get_training_data(training_set_foldername, anno_file_name):
         training_set_foldername, anno_file_name, class_label_pairs=None)
 
     # Convert np.array to dataframe for easy manipulations
-    training_df = pd.DataFrame (data=training_data,  # values
-                                index=[i for i in range (training_data.shape[0])],  # 1st column as index
-                                columns=training_feature_names)  # 1st row as the column names
+    training_df = pd.DataFrame(data=training_data,  # values
+                               index=[i for i in range (training_data.shape[0])],  # 1st column as index
+                               columns=training_feature_names)  # 1st row as the column names
 
     # Get values for Xtrain
-    Xtrain = training_df.values
+    Xtrain = training_df
 
     return Xtrain, training_label, training_class_label_pair, ids
 

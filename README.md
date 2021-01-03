@@ -33,6 +33,18 @@ $ git checkout user-{your_number}
 ```
 
 
+## Steps supposed to be executed
+```bash
+0. Prepare environment to work with
+$ conda create -n {environment_name} python=3.8 -y && conda activate {environment_name}
+$ pip install -r reqirements.txt 
+
+1. Retrieve and transform 3 source datasets
+- Navigate to "dataset" module and follow described steps  
+
+```
+
+
 ## Application Description
 ### Application Propose
 The application propose is the provision of 3 classification pre-trained on real-world data models which enables to predict 3 different types of targets.
