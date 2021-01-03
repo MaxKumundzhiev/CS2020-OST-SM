@@ -30,7 +30,7 @@ db.create_table(keyspace, tablename, schema, order_by=...order the results by so
 ### load the data from a json file
 
 ```
-  data = load_json_file(path_to_file, line_by_line=..., as_dataframe=...)
+  data = load_json_file(path_to_file, line_by_line=..., as_dataframe=False, preprocess=False)
 ```
 
 ### insert the data into an existing partition
