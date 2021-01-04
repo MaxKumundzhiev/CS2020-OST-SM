@@ -2,10 +2,10 @@
 **It is entrypoint of the OST-SM application.**  
 The module allows to retrieve and transform data at target format.
 
-**data target format**
+**Data target format**
 * results
-  * DATASET NAME
-    * TRAIN_DATA.CSV
+  * DATASET_NAME_ANNOTATION_LEVEL
+    * TRAIN_DATA.csv
     * CLASS_LABEL_PAIR.json
     * TRAIN_IDS.json 
 
@@ -18,6 +18,9 @@ where:
 - TRAIN_DATA - denotes particular task target set of features  
    - `e.g.: columns: [feature_1, feature_2, feature_3, ... , feature_4, y]`
    - `e.g.: row: [value_1, value_2, value_3, ... , value_4, y_target]`
+
+# IMPORTANT
+Transformed data will be saved at folder of second step -- `spark` within described folder structure. 
 
 # Requirements
 It is assumed user have already fetched github repository and accomplished step `0` described in main readme.    

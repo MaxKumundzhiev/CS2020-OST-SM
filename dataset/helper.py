@@ -23,7 +23,7 @@ from dataset.configurations import LOGGER
 
 def save(X_train, y_train, class_label_pair, X_train_ids, save_dir):
     X_train['y'] = y_train
-    X_train.to_csv(f'{save_dir}/X_train.csv')
+    X_train.to_csv(f'{save_dir}/X_train.csv', index=False)
     LOGGER.info(f'Write X_train.csv to: {save_dir}')
 
     with open(f'{save_dir}/class_label_pair.json', 'w') as j:

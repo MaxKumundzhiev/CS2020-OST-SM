@@ -1,4 +1,4 @@
-# Dockerfile
+# docker-compose.yml
 FROM python:3.6
 
 WORKDIR /usr/app
