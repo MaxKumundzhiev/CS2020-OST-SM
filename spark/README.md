@@ -1,6 +1,12 @@
 ## Spark
 The Spark microservice is supposed to apply particular feature selection algorithms accordingly incoming dataset.
 
+
+## Launch Spark Docker Container
+```bash
+$ docker-compose up
+```
+
 ## Get to Know Spark
 Spark utilizes few interfaces. Jointly our microservice it is used `pyspark`.  
 * Pyspark subpackages

@@ -135,5 +135,5 @@ dataset/NetML/2_training_set/2_training_set.json
 dataset/non-vpn2016/2_training_set/2_training_set.json
 
 # TRANSFORMED TRAINING DATASETS
-dataset/results
+spark/results
 

@@ -19,6 +19,9 @@ where:
    - `e.g.: columns: [feature_1, feature_2, feature_3, ... , feature_4, y]`
    - `e.g.: row: [value_1, value_2, value_3, ... , value_4, y_target]`
 
+# IMPORTANT
+Transformed data will be saved at folder of second step -- `spark` within described folder structure. 
+
 # Requirements
 It is assumed user have already fetched github repository and accomplished step `0` described in main readme.    
 
