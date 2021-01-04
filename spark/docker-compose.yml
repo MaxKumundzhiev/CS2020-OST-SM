@@ -21,7 +21,8 @@ services:
      restart_policy:
        condition: on-failure
     volumes:
-    - .:/home/$USER/work
+    - ./results:/home/$USER/work/dataset
+    - ./handler.ipynb:/home/$USER/work/handler.ipynb
 
 networks:
   pyspark-net:
