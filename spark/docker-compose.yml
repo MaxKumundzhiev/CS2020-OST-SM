@@ -7,7 +7,7 @@ services:
     - "4040:4040/tcp"
     networks:
     - pyspark-net
-    working_dir: /home/$USER/work
+    working_dir: /home/$USER/work/
     environment:
       CHOWN_HOME: "yes"
       GRANT_SUDO: "yes"
@@ -22,7 +22,7 @@ services:
        condition: on-failure
     volumes:
     - ./results:/home/$USER/work/dataset
-    - ./handler.ipynb:/home/$USER/work/handler.ipynb
+    - ./notebooks:/home/$USER/work/
 
 networks:
   pyspark-net:
