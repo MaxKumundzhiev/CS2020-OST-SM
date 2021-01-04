@@ -1,5 +1,5 @@
 # Models Description
-MK-KIT module is represented as 2 submodules based on datasets types.    
+ML-KIT module is represented as 2 submodules based on datasets types.    
 1. Malware Detection (cicids, netml datasets)
 2. Traffic Classification (non-vpn dataset)
 
