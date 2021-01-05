@@ -1,23 +1,27 @@
-# Spark 
+## Spark
+The Spark microservice is supposed to apply particular feature selection algorithms accordingly incoming dataset.
 
 
-## Deployment
-Deploy represenative spark environment on executable machine
-
-```
-$ docker run -p 8888:8888 --name spark jupyter/pyspark-notebook -v <path-to-project>/CS2020-OST-SM/datase:/usr/src/app/dataset
-
-```
-For example:
-
-```
-$ docker run -p 8888:8888 --name spark jupyter/pyspark-notebook -v /home/zozo/Documents/Study/3rd/OST/CS2020-OST-SM/dataset:/usr/src/app/dataset
-
+## Launch Spark Docker Container
+```bash
+$ docker-compose up
 ```
 
-Stop container:
+## Get to Know Spark
+Spark utilizes few interfaces. Jointly our microservice it is used `pyspark`.  
+* Pyspark subpackages
+  * pyspark.ml
+  * pyspark.sql
+  * pyspark.mllib
+  * pyspark.resource
+  * pyspark.streaming 
 
-```
-$ docker stop <container name>
+We are going to approach few of listed subpackages:   
+* pyspark.sql <- interact with data
+* pyspark.ml <- feature selection algorithms 
 
-```
+## Feature Selection Algorithms
+3 source datasets -- 3 different feature selection algorithms 
+1.
+2. 
+3.    
