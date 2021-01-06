@@ -32,7 +32,6 @@ $ git checkout user-{your_number}
 5. keep code clean and readable for other teammembers. 
 ```
 
-
 ## Steps supposed to be executed
 ```bash
 0. Prepare environment to work with
