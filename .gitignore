@@ -126,24 +126,18 @@ venv.bak/
 dmypy.json
 
 # Pyre type checker
-<<<<<<< HEAD
-<<<<<<< HEAD
-.pyre/
-=======
-=======
->>>>>>> ee78b5a71dd32bdc80df5b0ecc73be58da9965a3
 .pyre/
 
+# idea
+.idea
 
 # SOURCE TRAINING DATASETS
 dataset/CICIDS2017/2_training_set/2_training_set.json
 dataset/NetML/2_training_set/2_training_set.json
 dataset/non-vpn2016/2_training_set/2_training_set.json
-<<<<<<< HEAD
->>>>>>> 9a92df06495926a2a619f252b5fb1a2ce0529e40
-=======
+
 
 # TRANSFORMED TRAINING DATASETS
 spark/results
 
->>>>>>> ee78b5a71dd32bdc80df5b0ecc73be58da9965a3
+
