@@ -8,9 +8,15 @@
 # -------------------------------------------
 import os
 import json
+
+from mongodb.handler import Factory
 from kafka import KafkaConsumer, KafkaProducer
 
+DB_URL = os.environ.get("DB_URL")
+DB_NAME = os.environ.get("DB_NAME")
+
 MODEL = os.environ.get("MODEL")
+
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BROKER_URL")
 TRANSACTIONS_TOPIC = os.environ.get("TRANSACTIONS_TOPIC")
 LEGIT_TOPIC = os.environ.get("LEGIT_TOPIC")
@@ -38,5 +44,9 @@ if __name__ == "__main__":
         # topic = FRAUD_TOPIC if is_suspicious(transaction) else LEGIT_TOPIC
         # producer.send(topic, value=transaction)
         # print(topic, transaction)  # DEBUG
-        print(f'FROM DETECTOR:{message}')
-
+        record: dict = message.value
+        topic = 'RESULT TOPIC'
+        print(f'WRITING TO MONGO: {record}')
+        producer.send(topic, value=record)
+        Factory().run(record)
+        print(f'SUCCESS')

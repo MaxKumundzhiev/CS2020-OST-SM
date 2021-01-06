@@ -22,6 +22,7 @@ services:
       MODEL: ${MODEL}
     volumes:
       - ../ml_kit:/usr/src/app/models/
+      - ../mongodb:/usr/src/app/mongodb/
 
 networks:
   default:

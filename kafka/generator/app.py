@@ -13,7 +13,6 @@ from time import sleep
 from typing import List
 
 from kafka import KafkaProducer
-
 from generator import validate_dataset, get_dataset
 
 
