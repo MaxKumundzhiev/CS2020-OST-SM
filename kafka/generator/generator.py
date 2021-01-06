@@ -7,10 +7,12 @@
 # github: https://github.com/KumundzhievMaxim
 # -------------------------------------------
 
-
-# generator/transactions.py
+from pathlib import Path
+from typing import List
 from random import choices, randint
 from string import ascii_letters, digits
+
+import pandas as pd
 
 account_chars: str = digits + ascii_letters
 
@@ -34,3 +36,16 @@ def create_random_transaction() -> dict:
         # Keep it simple: it's all euros
         "currency": "EUR",
     }
+
+
+def validate_dataset(dataset) -> Path:
+    dataset_path = Path(f'/usr/src/app/NAS/{dataset}/test/test.csv')
+    assert dataset_path.exists(), f'FileNotFound, there is no such {dataset} file or directory'
+    return dataset_path
+
+
+def get_dataset(dataset_path: str) -> List[dict]:
+    df = pd.read_csv(dataset_path)
+    assert df.empty is False, 'Dataset is empty'
+    return df.to_dict(orient='records')
+

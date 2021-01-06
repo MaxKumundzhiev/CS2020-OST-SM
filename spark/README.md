@@ -23,7 +23,4 @@ We are going to approach few of listed subpackages:
 * pyspark.ml <- feature selection algorithms 
 
 ## Feature Selection Algorithms
-3 source datasets -- 3 different feature selection algorithms 
-1.
-2. 
-3.    
+TBD     

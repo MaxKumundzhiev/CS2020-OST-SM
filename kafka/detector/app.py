@@ -32,8 +32,9 @@ if __name__ == "__main__":
         value_serializer=lambda value: json.dumps(value).encode(),
     )
     for message in consumer:
-        transaction: dict = message.value
-        topic = FRAUD_TOPIC if is_suspicious(transaction) else LEGIT_TOPIC
-        producer.send(topic, value=transaction)
-        print(topic, transaction)  # DEBUG
+        # transaction: dict = message.value
+        # topic = FRAUD_TOPIC if is_suspicious(transaction) else LEGIT_TOPIC
+        # producer.send(topic, value=transaction)
+        # print(topic, transaction)  # DEBUG
+        print(f'FROM DETECTOR:{message}')
 
