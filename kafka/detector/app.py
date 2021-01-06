@@ -10,6 +10,7 @@ import os
 import json
 from kafka import KafkaConsumer, KafkaProducer
 
+MODEL = os.environ.get("MODEL")
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BROKER_URL")
 TRANSACTIONS_TOPIC = os.environ.get("TRANSACTIONS_TOPIC")
 LEGIT_TOPIC = os.environ.get("LEGIT_TOPIC")
@@ -31,6 +32,7 @@ if __name__ == "__main__":
         bootstrap_servers=KAFKA_BROKER_URL,
         value_serializer=lambda value: json.dumps(value).encode(),
     )
+    print(MODEL)
     for message in consumer:
         # transaction: dict = message.value
         # topic = FRAUD_TOPIC if is_suspicious(transaction) else LEGIT_TOPIC

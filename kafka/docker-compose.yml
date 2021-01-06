@@ -7,7 +7,8 @@ services:
       KAFKA_BROKER_URL: broker:9092
       TRANSACTIONS_TOPIC: queueing.transactions
       TRANSACTIONS_PER_SECOND: 1000
-      DATASET: CICIDS2017
+      DATASET: ${DATASET}
+      LEVEL: ${LEVEL}
     volumes:
       - ../NAS:/usr/src/app/NAS/
 
@@ -18,6 +19,7 @@ services:
       TRANSACTIONS_TOPIC: queueing.transactions
       LEGIT_TOPIC: streaming.transactions.legit
       FRAUD_TOPIC: streaming.transactions.fraud
+      MODEL: ${MODEL}
     volumes:
       - ../ml_kit:/usr/src/app/models/
 

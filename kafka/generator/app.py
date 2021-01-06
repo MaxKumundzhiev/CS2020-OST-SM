@@ -17,6 +17,8 @@ from kafka import KafkaProducer
 from generator import validate_dataset, get_dataset
 
 
+LEVEL = os.environ.get('LEVEL')
+MODEL = os.environ.get('MODEL')
 DATASET = os.environ.get('DATASET')  # CICIDC2017
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BROKER_URL")
 TRANSACTIONS_TOPIC = os.environ.get("TRANSACTIONS_TOPIC")
@@ -28,6 +30,7 @@ if __name__ == "__main__":
         bootstrap_servers=KAFKA_BROKER_URL,
         value_serializer=lambda value: json.dumps(value).encode(),
     )
+    print(LEVEL, DATASET)
     dataset_path = validate_dataset(dataset=DATASET)
     print(dataset_path)
     dataset: List[dict] = get_dataset(dataset_path)
