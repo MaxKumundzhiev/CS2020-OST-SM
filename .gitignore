@@ -132,12 +132,9 @@ dmypy.json
 .idea
 
 # SOURCE TRAINING DATASETS
-dataset/CICIDS2017/2_training_set/2_training_set.json
-dataset/NetML/2_training_set/2_training_set.json
-dataset/non-vpn2016/2_training_set/2_training_set.json
-
+dataset/CICIDS2017/
+dataset/NetML/
+dataset/non-vpn2016/
 
 # TRANSFORMED TRAINING DATASETS
-spark/results
-
-
+NAS

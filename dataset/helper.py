@@ -21,18 +21,25 @@ from sklearn.utils.multiclass import unique_labels
 from dataset.configurations import LOGGER
 
 
-def save(X_train, y_train, class_label_pair, X_train_ids, save_dir):
+def save_train(X_train, y_train, class_label_pair, X_train_ids, dir):
     X_train['y'] = y_train
-    X_train.to_csv(f'{save_dir}/X_train.csv', index=False)
-    LOGGER.info(f'Write X_train.csv to: {save_dir}')
+    X_train.to_csv(f'{dir}/train.csv', index=False)
+    LOGGER.info(f'Write train.csv to: {dir}')
 
-    with open(f'{save_dir}/class_label_pair.json', 'w') as j:
+    with open(f'{dir}/class_label_pair.json', 'w') as j:
         json.dump(class_label_pair, j)
-    LOGGER.info(f'Write Class Label Pair to: {save_dir}')
+    LOGGER.info(f'Write Class Label Pair to: {dir}')
 
-    with open(f'{save_dir}/train_ids.json', 'w') as j:
+    with open(f'{dir}/train_ids.json', 'w') as j:
         json.dump(X_train_ids, j)
-    LOGGER.info(f'Write X_train ids to: {save_dir}')
+    LOGGER.info(f'Write X_train ids to: {dir}')
+    return True
+
+
+def save_test(test: pd.DataFrame, dir):
+    test.to_csv(f'{dir}/test.csv', index=False)
+    LOGGER.info(f'Write test.csv to: {dir}')
+    return True
 
 
 def encode_label(labels, class_label_pairs=None):
@@ -87,9 +94,7 @@ def read_json_gz(jsonFilename, featureDict=None):
     """
     feature_header = []
     # Open json file from gzip
-    with gzip.open (jsonFilename, "rb") as jj:
-        # data = [json.loads(line) for line in jj]
-        # Write a for loop and check every single flow with utf-8:
+    with gzip.open(jsonFilename, "rb") as jj:
         data = []
         enc = []
         pb_dataline = []
@@ -98,20 +103,19 @@ def read_json_gz(jsonFilename, featureDict=None):
         while True:
             i += 1
             try:
-                flow = jj.readline ().decode ("utf-8")  # decoded to convert bytes to str for JSON.
+                flow = jj.readline().decode ("utf-8")  # decoded to convert bytes to str for JSON.
                 if not flow:
                     break
-                sample = json.loads (flow)
-                data.append (sample)
+                sample = json.loads(flow)
+                data.append(sample)
             except:
-                pb_dataline.append (i)
-                # print("Line {} has invalid character. Skipped ...".format(i))
-        if len (pb_dataline) != 0:
-            print ("Total {} lines were skipped because of invalid characters.".format (len (pb_dataline)))
+                pb_dataline.append(i)
+        if len(pb_dataline) != 0:
+            print("Total {} lines were skipped because of invalid characters.".format(len(pb_dataline)))
 
         if featureDict is None:
-            with open ("./utils/featureDict_META.json", 'r') as js:
-                featureDict = json.load (js)
+            with open("dataset/utils/featureDict_META.json", 'r') as js:
+                featureDict = json.load(js)
 
         # Create an empty numpy array of arbitrarily but sufficiently large (2048) in terms of columns
         dataArray = np.zeros ((len (data), 2048))
@@ -184,13 +188,10 @@ def read_dataset(datasetFolderName, annotationFileName=None, class_label_pairs=N
         for f in files:
             if f.endswith((".json.gz")):
                 LOGGER.info(f"Reading {f}")
-                # try:
-                d, ids, f_names = read_json_gz (os.path.join (root, f))
-                # except:
-                #    print("File {} is errorenous! Skipped.".format(f))
+                d, ids, f_names = read_json_gz(os.path.join(root, f))
 
                 # Check if f_names has more features
-                if len (f_names) > len (feature_names):
+                if len(f_names) > len(feature_names):
                     feature_names = f_names
                 if dataArray is None:
                     dataArray = d
@@ -208,24 +209,15 @@ def read_dataset(datasetFolderName, annotationFileName=None, class_label_pairs=N
     # Training or test-with anno case, return labels
     if annotationFileName is not None:
         labelArray, class_label_pairs = encode_label (label)
-        # print("shape of labelArray: ", labelArray.shape)
-        # print("class_label_pairs:")
-        # for k, v in sorted(class_label_pairs.items()):
-        #    print(k, v)
-
         return feature_names, ids, dataArray, labelArray, class_label_pairs
 
-    # Prediction case, no return of labelArray and class_label_pairs
     else:
-        # print("shape of dataArray: ", dataArray.shape)
-        # print("len of feature_names: ", len(feature_names))
-
         return feature_names, ids, dataArray, 0, 0
 
 
 def get_training_data(training_set_foldername, anno_file_name):
     # Read training set from json files
-    LOGGER.info("\nLoading training set ...")
+    LOGGER.info("\n Loading training set ...")
     training_feature_names, ids, training_data, training_label, training_class_label_pair = read_dataset(
         training_set_foldername, anno_file_name, class_label_pairs=None)
 
@@ -234,26 +226,19 @@ def get_training_data(training_set_foldername, anno_file_name):
                                index=[i for i in range (training_data.shape[0])],  # 1st column as index
                                columns=training_feature_names)  # 1st row as the column names
 
-    # Get values for Xtrain
-    Xtrain = training_df
-
-    return Xtrain, training_label, training_class_label_pair, ids
+    return training_df, training_label, training_class_label_pair, ids
 
 
-def get_submission_data(test_set_foldername):
+def get_train_data(test_set_foldername):
     # Read test set from json files
-    print ("Loading submission set ...")
+    LOGGER.info("Loading train set ...")
     test_feature_names, ids, test_data, _, _, = read_dataset (test_set_foldername)
 
     # Convert np.array to dataframe for easy manipulations
-    test_df = pd.DataFrame (data=test_data,  # values
-                            index=[i for i in range (test_data.shape[0])],  # 1st column as index
-                            columns=test_feature_names)  # 1st row as the column names
-
-    # Get np.array for Xtest
-    Xtest = test_df.values
-
-    return Xtest, ids
+    test_df = pd.DataFrame(data=test_data,
+                           index=[i for i in range(test_data.shape[0])],  # 1st column as index
+                           columns=test_feature_names)  # 1st row as the column names
+    return test_df, ids
 
 
 def read_anno_json_gz(filename, class_label_pairs=None):
