@@ -1,6 +1,8 @@
 ## Spark
 The Spark microservice is supposed to apply particular feature selection algorithms accordingly incoming dataset.
 
+## Requirements
+It is required to have preinstalled docker CLI and docker-compose CLI 
 
 ## Launch Spark Docker Container
 ```bash
