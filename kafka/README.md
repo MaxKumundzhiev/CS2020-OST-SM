@@ -18,6 +18,22 @@ Zookeeper - it is a coordination software, distributed as well, used by Apache K
  ```
 
 # Deployment
+Before launching the kafka microservice, navigate to `docker.env` and setup desired parameters:
+```
+Example:
+    DATASET=CICIDS2017
+    LEVEL=top
+    MODEL=svm
+    DATABASE=mongodb
+
+Explanation:
+    DATASET=<NAME OF DATASET TO PROCESS> # TEST SET NOT TRAIN
+    LEVEL=<LEVEL OF DATASET TO PROCESS> # FINE, MID, TOP -- EACH DATASET HAS IT"S OWN PARTICULAR TYPES 
+    MODEL=<TYPE OF PREDICTING MODEL> # [SVM, DECISION TREE, RANDOM FOREST] 
+    DATABASE=<DATABASE TO WRITE RESULTS> # [MONGODB, CASSANDRADB]
+``` 
+ 
+
 ```bash
 # mandatory
 create docker network
@@ -25,11 +41,11 @@ $ docker network create kafka-network
 
 # mandatory [Terminal 1]
 spin up the kafka && zookeeper clusters 
-$ docker-compose -f docker-compose.kafka.yml up # specific case
+$ docker-compose -f docker-compose.kafka.yml up
 
 # mandatory [Terminal 2]
 spin up the generator && detector   
-$ docker-compose up
+$ docker-compose --env-file docker.env up
 
 # addition [Terminal 3]
 to know when kafka cluster finished initialising 

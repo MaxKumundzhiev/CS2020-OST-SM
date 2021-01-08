@@ -18,7 +18,7 @@ class Hub:
         return train_test_split(x, y, test_size=fraction, random_state=seed)
 
     @staticmethod
-    def LogisticRegression(self, x_train, y_train, x_test, y_test, seed):
+    def LogisticRegression(x_train, y_train, x_test, y_test, seed):
         from sklearn.linear_model import LogisticRegression
         from sklearn.metrics import accuracy_score
 
