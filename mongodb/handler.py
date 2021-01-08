@@ -1,7 +1,7 @@
 from typing import Dict, List
 
 from pymongo import MongoClient
-from kafka.mongodb_utils.config import DB_NAME, DB_URL, LOGGER
+from mongodb.config import DB_NAME, DB_URL, LOGGER
 
 
 class Factory:
@@ -56,7 +56,7 @@ class Factory:
         else:
             self._insert_row(collection, data=data)
 
-        return collection
+        LOGGER.info(f'SUCCESS WRITE TO MG_DB')
 
 
 

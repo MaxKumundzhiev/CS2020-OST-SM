@@ -1,7 +1,7 @@
 # docker-compose.yml
 FROM python:3.6
 
-WORKDIR /usr/app
+WORKDIR /usr/src/app
 
 ADD requirements.txt ./
 RUN pip install -r requirements.txt

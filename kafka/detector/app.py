@@ -38,15 +38,16 @@ if __name__ == "__main__":
         bootstrap_servers=KAFKA_BROKER_URL,
         value_serializer=lambda value: json.dumps(value).encode(),
     )
-    print(MODEL)
+    print(MODEL, DB_URL, DB_NAME)
     for message in consumer:
         # transaction: dict = message.value
         # topic = FRAUD_TOPIC if is_suspicious(transaction) else LEGIT_TOPIC
         # producer.send(topic, value=transaction)
         # print(topic, transaction)  # DEBUG
+        print(f"GET ROW {message.value}")  # DEBUG
         record: dict = message.value
-        topic = 'RESULT TOPIC'
-        print(f'WRITING TO MONGO: {record}')
-        producer.send(topic, value=record)
+        topic = LEGIT_TOPIC
+        # print(f'WRITING TO MONGO: {record}')
+        # producer.send(topic, value=record)
         Factory().run(record)
-        print(f'SUCCESS')
+        print(f"NEXT ROW")  # DEBUG

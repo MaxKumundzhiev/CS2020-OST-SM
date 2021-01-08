@@ -29,15 +29,14 @@ if __name__ == "__main__":
         bootstrap_servers=KAFKA_BROKER_URL,
         value_serializer=lambda value: json.dumps(value).encode(),
     )
-    print(LEVEL, DATASET)
+    # print(LEVEL, DATASET)
     dataset_path = validate_dataset(dataset=DATASET)
-    print(dataset_path)
+    # print(dataset_path)
     dataset: List[dict] = get_dataset(dataset_path)
-    print(dataset)
     _n_records = len(dataset)
     for row_index, row in enumerate(dataset):
+        print(f"SENDING ROW, {row_index}/{_n_records}")
         producer.send(TRANSACTIONS_TOPIC, value=row)
-        print(f'{row_index}/{_n_records}: {row}')  # DEBUG
         sleep(SLEEP_TIME)
 
 
