@@ -14,8 +14,13 @@ import java.nio.charset.Charset;
 public class CustomSource implements SourceFunction<JSONObject> {
 
     boolean isRunning = true;
-    String url = "http://localhost:8000/non_vpn";
+    private String url;
 
+    public CustomSource(String url) {
+        super();
+        this.url = url;
+    }
+    
     @Override
     public void run(SourceContext<JSONObject> ctx) throws JSONException,
             IOException {
@@ -25,10 +30,15 @@ public class CustomSource implements SourceFunction<JSONObject> {
                 is, Charset.forName("UTF-8")
         ));
 
-        while ( !rd.readLine().isEmpty() && isRunning ) {
+        while ( isRunning ) {
             String jsonText = rd.readLine();
 
-            if( jsonText == null ) break;
+            if( jsonText.isEmpty() || jsonText == null ) {
+                continue;
+            } else if ( jsonText.toLowerCase().equals("eof") ) {
+                isRunning = false;
+                break;
+            }
 
             JSONObject flow = new JSONObject(jsonText);
 

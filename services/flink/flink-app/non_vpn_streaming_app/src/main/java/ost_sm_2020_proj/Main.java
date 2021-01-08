@@ -10,17 +10,19 @@ import org.json.JSONObject;
 
 public class Main {
     public static void main(String args[]) throws Exception {
+
+        String url = "http://localhost:8000/non_vpn";
+
         StreamExecutionEnvironment env = StreamExecutionEnvironment
                 .getExecutionEnvironment();
 
-        DataStreamSource<JSONObject> dataStream = env
-                .addSource(new CustomSource());
+        DataStreamSource<JSONObject> dataStream = StreamUtils.getStreamingData(env, url);
 
         // Transformation #1
         // number of flows grouped by the label
 
         DataStream<Tuple2<String, Integer>> flowsCounter = dataStream
-                .flatMap(new DataFlowTypeSplitter())
+                .map(new DataFlowTypeSplitter())
                 .keyBy(flow -> flow.f0)
                 .sum(1);
 
@@ -32,8 +34,8 @@ public class Main {
                 .build();
 
         // Transformation #2
-        // average # of bytes sent to http or dns application every 5 seconds
-/*
+        // average # of bytes sent to http or dns application in a  5-second window
+
         DataStream<Tuple2<Integer, Double>> httpDnsFlows = dataStream
                 .filter(new PortFilter())
                 .map(new DataFlowMapFunction())
@@ -44,10 +46,10 @@ public class Main {
         httpDnsFlows.print();
 
         CassandraSink.addSink( httpDnsFlows )
-                .setQuery("INSERT INTO ost_sm_2020.bytes_in_avg_sink (id, dst_port, bytes_in_avg) VALUES(now(), ?, ?)")
+                .setQuery("INSERT INTO ost_sm_2020.bytes_in_avg_sink (id, dst_port, bytes_in_avg) VALUES(toTimeStamp( now()), ?, ?)")
                 .setHost("127.0.0.1")
                 .build();
-*/
-        env.execute("FilterStrings");
+
+        env.execute("FilterDataFlows");
     }
 }

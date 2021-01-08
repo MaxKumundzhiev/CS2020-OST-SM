@@ -69,14 +69,19 @@ config = {
             	'PRIMARY KEY':'(id)'
     },
     'bytes_in_avg_db_schema':{
-                'id': 'TimeUUID',
+                'id': 'timestamp',
                 'dst_port':'int',
                 'bytes_in_avg':'double',
-                'PRIMARY KEY':'(id)'
+                'PRIMARY KEY':'(dst_port, id)'
     },
     'flows_count_db_schema':{
         'label': 'text',
         'count': 'int',
         'PRIMARY KEY':'(label)'
+    },
+    'predictions_sink':{
+        'id': 'int',
+        'label': 'text',
+        'PRIMARY KEY': '(id)'
     }
 }
