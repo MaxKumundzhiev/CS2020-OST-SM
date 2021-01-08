@@ -3,7 +3,7 @@ from fastapi.responses import StreamingResponse
 import sys
 import json
 
-sys.path.insert(0, '../../../cassandradb')
+sys.path.insert(0, '../../../services/cassandradb')
 
 from db_utils import CassandraDb
 

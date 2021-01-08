@@ -46,14 +46,14 @@ $ docker network create kafka-network
 ###  1. Retrieve Source Datasets (dataset)
 ```bash
 $ python -m dataset.handler -d dataset/CICIDS2017 -a fine 
-$ python -m dataset.handler -d dataset/CICIDS2017 -a top
+$ python -m dataset.handler -d dataset/CICIDS2017 -a top # error
  
-$ python -m dataset.handler -d dataset/NetML -a fine
-$ python -m dataset.handler -d dataset/NetML -a top
+$ python -m dataset.handler -d dataset/NetML -a fine # error
+$ python -m dataset.handler -d dataset/NetML -a top # error
 
-$ python -m dataset.handler -d dataset/non-vpn2016 -a fine
-$ python -m dataset.handler -d dataset/non-vpn2016 -a mid
-$ python -m dataset.handler -d dataset/non-vpn2016 -a top  
+$ python -m dataset.handler -d dataset/non-vpn2016 -a fine # error
+$ python -m dataset.handler -d dataset/non-vpn2016 -a mid # error
+$ python -m dataset.handler -d dataset/non-vpn2016 -a top # error
 ```
 
 ### 2. MongoBD (mongodb) [WIP]

@@ -128,11 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# SOURCE DATA
+source_data
 
-# SOURCE TRAINING DATASETS
-dataset/CICIDS2017/
-dataset/NetML/
-dataset/non-vpn2016/
-
-# TRANSFORMED TRAINING DATASETS
+# NAS DATA
 NAS
