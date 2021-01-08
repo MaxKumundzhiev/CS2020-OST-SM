@@ -1,4 +1,4 @@
-# Streaming Pipeline for Non-vpn2016 Using Cassandra Database as a storage and flink as streaming environment
+# Streaming Pipeline Using Cassandra Database as a storage and flink as streaming environment
 
 <img width="800" height="800" src="Flink-Workflow.png" alt="Flink workflow" title="Flink Workflow" />
 
@@ -16,6 +16,10 @@
 
 #### It filters the incoming flows based on destination port number, and keep only http and dns related flows
 #### It applies a Time windowing aggregation to calculate the avg # of incoming bytes during 5 seconds
+
+# Streaming Pipeline for Prediction service using flink and a pre-trained model
+
+<img width="800" height="800" src="Flink Part -2- Predictions Streaming.png" alt="Prediction Service Streaming" title="Prediction Service Streaming" />
 
 ### The results of both transformations are dumped to a Cassandra Database sink for further processing...
 
