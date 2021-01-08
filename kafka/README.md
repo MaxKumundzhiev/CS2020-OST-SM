@@ -35,10 +35,6 @@ Explanation:
  
 
 ```bash
-# mandatory
-create docker network
-$ docker network create kafka-network
-
 # mandatory [Terminal 1]
 spin up the kafka && zookeeper clusters 
 $ docker-compose -f docker-compose.kafka.yml up
