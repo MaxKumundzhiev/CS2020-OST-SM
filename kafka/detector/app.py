@@ -9,7 +9,7 @@
 import os
 import json
 
-from mongodb.handler import Factory
+from mongodb.utils import Factory
 from kafka import KafkaConsumer, KafkaProducer
 
 DB_URL = os.environ.get("DB_URL")
