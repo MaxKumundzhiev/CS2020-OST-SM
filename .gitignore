@@ -128,10 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# idea
-.idea
-# SOURCE DATA
-source_data
-
 # NAS DATA
 NAS
