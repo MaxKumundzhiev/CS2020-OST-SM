@@ -32,15 +32,15 @@ List of available models names:
 
 ```bash
 List of available tasks names:
-- binary-class
-- multi-class
+- binary_class
+- multi_class
 ```
 
 ```bash
 $ python -m services.ml_kit.train -d <DATASET NAME> -t <TYPE OF TASK> -m <MODEL NAME>
 
 For example:
-$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary-class -m logistic-regressor 
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m logistic-regressor 
 ```
 
 

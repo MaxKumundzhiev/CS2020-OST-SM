@@ -10,11 +10,11 @@
 from services.ml_kit.configurations import LOGGER
 
 
-class Hub:
+class ModelsHub:
     @staticmethod
-    def train_test_split(x, y, fraction: int, seed: int):
+    def train_test_split(x, y, fraction: float, seed: int):
         from sklearn.model_selection import train_test_split
-        LOGGER.info('Split data')
+        LOGGER.info('Splitted dataset')
         return train_test_split(x, y, test_size=fraction, random_state=seed)
 
     @staticmethod
