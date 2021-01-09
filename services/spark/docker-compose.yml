@@ -21,7 +21,7 @@ services:
      restart_policy:
        condition: on-failure
     volumes:
-    - ../NAS/:/home/$USER/work/datasets
+    - ../../NAS/:/home/$USER/work/datasets
     - ./notebooks:/home/$USER/work/
 
 networks:

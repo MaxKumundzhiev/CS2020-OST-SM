@@ -69,11 +69,17 @@ $ python -m services.mongodb.uploader -d CICIDS -t test
 $ python -m services.mongodb.uploader -d TRANSFORMED_CICIDS -t train
 $ python -m services.mongodb.uploader -d TRANSFORMED_CICIDS -t test
 
+$ python -m services.mongodb.uploader -d SELECTED_CICIDS -t train
+$ python -m services.mongodb.uploader -d SELECTED_CICIDS -t test
+
 $ python -m services.mongodb.uploader -d NET -t train
 $ python -m services.mongodb.uploader -d NET -t test
 
 $ python -m services.mongodb.uploader -d TRANSFORMED_NET -t train
 $ python -m services.mongodb.uploader -d TRANSFORMED_NET -t test
+
+$ python -m services.mongodb.uploader -d SELECTED_NET -t train
+$ python -m services.mongodb.uploader -d SELECTED_NET -t test
 ```
 
 ### 3. CassandraDB (cassandradb) [WIP]
