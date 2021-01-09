@@ -15,16 +15,12 @@ class ModelsHub:
     def train_test_split(x, y, fraction: float, seed: int):
         from sklearn.model_selection import train_test_split
         LOGGER.info('Splitted dataset')
-        return train_test_split(x, y, test_size=fraction, random_state=seed)
+        return train_test_split(x, y, test_size=fraction, random_state=seed, shuffle=True)
 
     @staticmethod
     def logistic_regression(x_train, y_train, x_test, y_test, seed):
         from sklearn.linear_model import LogisticRegression
         from sklearn.metrics import accuracy_score
-
-        # validate input shapes
-        assert len(x_train) == len(y_train), 'Unequal shapes of X_train and Y_train'
-        assert len(x_test) == len(y_test), 'Unequal shapes of X_test and Y_test'
 
         LOGGER.info('Utilized Logistic Regression')
         clf = LogisticRegression(random_state=seed).fit(x_train, y_train)

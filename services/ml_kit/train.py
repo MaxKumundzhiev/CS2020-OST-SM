@@ -11,12 +11,15 @@ import argparse
 from pathlib import Path
 
 import pandas as pd
+from sklearn.preprocessing import OrdinalEncoder
 
 from services.ml_kit.models.hub import ModelsHub
 from services.ml_kit.configurations import LOGGER, NAS
 
 
 def run(dataset_name, type, model):
+    ordinal_encoder = OrdinalEncoder()
+
     dataset_path = Path(NAS, dataset_name, 'train.csv')
     data = pd.read_csv(dataset_path)
     LOGGER.info(f'Read dataset: {dataset_name} train.csv file')
@@ -24,22 +27,30 @@ def run(dataset_name, type, model):
     if type == 'binary_class':
         data.drop(columns='multi_class', axis=1, inplace=True)
         LOGGER.info(f'Train task: {type}. Dropped multi-class column from train set')
+
     else:
         data.drop(columns='binary_class', axis=1, inplace=True)
-        LOGGER.info(f'Train task: {type}. Dropped binary-class column from train set')
+        LOGGER.info (f'Train task: {type}. Dropped binary-class column from train set')
 
-    _x = data.drop(columns=f'{type}', axis=1)
-    _y = data[f'{type}']
-    LOGGER.debug(f'Initial dataset shape: {_x.shape}')
+    data['y'] = ordinal_encoder.fit_transform(data[[f'{type}']])
+    data.drop(columns=f'{type}', axis=1, inplace=True)
+
+    _x = data.drop(columns='y', axis=1)
+    _y = data['y']
+    LOGGER.debug(f'Initial dataset shape - x: {_x.shape}, y: {_y.shape}')
 
     X_train, X_test, y_train, y_test = ModelsHub.train_test_split(x=_x, y=_y, fraction=.2, seed=241)
     LOGGER.info(f'X_train shape: {X_train.shape}')
-    LOGGER.info (f'y_train shape: {y_train.shape}')
-
+    LOGGER.info(f'y_train shape: {y_train.shape}')
     LOGGER.info(f'X_test shape: {X_test.shape}')
     LOGGER.info(f'y_test shape: {y_test.shape}')
 
-    return
+    if model == 'logistic-regressor':
+        ModelsHub.logistic_regression(X_train, X_test, y_train, y_test, seed=241)
+    elif model == 'decision-tree':
+        ModelsHub.decision_tree(X_train, X_test, y_train, y_test, seed=241)
+    elif model == 'random-forest':
+        ModelsHub.random_forest(X_train, X_test, y_train, y_test, seed=241)
 
 
 if __name__ == "__main__":
