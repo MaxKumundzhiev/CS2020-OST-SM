@@ -1,64 +1,69 @@
 from typing import Dict, List
 
 from pymongo import MongoClient
-from services.mongodb.config import DB_NAME, DB_URL, LOGGER
+from services.mongodb.configurations import DB_NAME, DB_URI, LOGGER
+
+from werkzeug.local import LocalProxy
 
 
-class Factory:
-    def __init__(self):
-        self.cursor = self._get_cursor()
-
+class MongoFactory:
     @staticmethod
-    def _get_cursor():
-        """Access database
-        Note:
-            if database does not exist it will be automatically created
+    def get_db():
+        """
+        Configuration method to return db instance
+        """
+        client = MongoClient(DB_URI)
+        db = client[DB_NAME]
+
+        if db is None:
+            db = MongoClient(DB_URI,
+                             maxPoolSize=50,
+                             serverSelectionTimeoutMS=2500
+                             )[DB_NAME]
+        return db
+
+    def server_status(self):
+        return self.get_db().command('serverStatus')
+
+    def get_configuration(self):
+        """
+        Returns the following information configured for this client:
+        - max connection pool size
+        - write concern
+        - database user role
         """
 
         try:
-            client = MongoClient(DB_URL)
-            db_cursor = client[DB_NAME]
-            LOGGER.info(f'Accessed to {DB_NAME} database')
-            return db_cursor
-        except Exception as e:
-            raise e
+            db = self.get_db()
+            role_info = db.command({'connectionStatus': 1}).get('authInfo').get('authenticatedUserRoles')[0]
+            print(db.client.max_pool_size, db.client.write_concern, role_info)
+            return db.client.max_pool_size, db.client.write_concern, role_info
+        except IndexError:
+            return self.db.client.max_pool_size, self.db.client.write_concern, {}
 
-    def _get_collection(self, collection_name: str):
-        """Access particular database collection
-        Note:
-            if collection does not exist it will be automatically created
-        """
+    def insert_sample_collection(self):
+        db = self.get_db()
+        collection = db.sample_collection
 
-        try:
-            db_collection = self.cursor[collection_name]
-            LOGGER.info(f'Created to {collection_name} collection')
-            return db_collection
-        except Exception as e:
-            raise e
+        sample_row = {
+            "_id": 4,
+            "name": "sample_row"
+        }
+        collection.insert(sample_row)
+        LOGGER.info(collection.find_one())
 
-    @staticmethod
-    def _insert_row(collection, data: Dict):
-        LOGGER.info(f'Inserted {len(data)} rows to {collection}')
-        collection.insert_one(data)
-        return True
+    def insert_row(self, _id, row, type:str, collection_name: str, verbose=False):
+        db = self.get_db()
 
-    @staticmethod
-    def _insert_rows(collection, data: List[Dict]):
-        collection.insert_many(data)
-        LOGGER.info(f'Inserted {len(data)} rows to {collection}')
-        return True
+        if not type:
+            LOGGER.warning("Dataset type should be denoted")
+            raise
 
-    def run(self, data):
-        collection = self._get_collection(collection_name=f'logs')  # collection name
-        
-        if len(data) != 1:
-            self._insert_rows(collection, data=data)
-        else:
-            self._insert_row(collection, data=data)
+        collection_name = f'{collection_name}_{type}'
+        collection = db[collection_name]
 
-        LOGGER.info(f'SUCCESS WRITE TO MG_DB')
-
-
-
-
-
+        collection.insert({"_id": _id,
+                           "features": row
+                           })
+        if verbose:
+            LOGGER.info(collection.find_one())
