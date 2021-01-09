@@ -18,7 +18,7 @@ class Hub:
         return train_test_split(x, y, test_size=fraction, random_state=seed)
 
     @staticmethod
-    def LogisticRegression(x_train, y_train, x_test, y_test, seed):
+    def logistic_regression(x_train, y_train, x_test, y_test, seed):
         from sklearn.linear_model import LogisticRegression
         from sklearn.metrics import accuracy_score
 
@@ -34,7 +34,7 @@ class Hub:
         return score, predictions
 
     @staticmethod
-    def DecisionTree(x_train, y_train, x_test, y_test, seed):
+    def decision_tree(x_train, y_train, x_test, y_test, seed):
         from sklearn.tree import DecisionTreeClassifier
         from sklearn.metrics import accuracy_score
 
@@ -46,7 +46,7 @@ class Hub:
         return score, predictions
 
     @staticmethod
-    def RandomForest(x_train, y_train, x_test, y_test, seed):
+    def random_forest(x_train, y_train, x_test, y_test, seed):
         from sklearn.ensemble import RandomForestClassifier
         from sklearn.metrics import accuracy_score
 
