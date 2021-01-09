@@ -43,29 +43,43 @@ $ pip install -r reqirements.txt
 $ docker network create kafka-network 
 ```
 
-###  1. Retrieve Source Datasets (dataset)
+###  1. Extract Datasets
 ```bash
-$ python -m dataset.handler -d dataset/CICIDS2017 -a fine 
-$ python -m dataset.handler -d dataset/CICIDS2017 -a top
- 
-$ python -m dataset.handler -d dataset/NetML -a fine
-$ python -m dataset.handler -d dataset/NetML -a top
-
-$ python -m dataset.handler -d dataset/non-vpn2016 -a fine
-$ python -m dataset.handler -d dataset/non-vpn2016 -a mid
-$ python -m dataset.handler -d dataset/non-vpn2016 -a top  
+$ python -m extractor.handler -d CICIDS 
+$ python -m extractor.handler -d NET 
 ```
 
-### 2. MongoBD (mongodb) [WIP]
+###  2. Transform Datasets
+```bash
+$ python -m transformer.handler -d CICIDS 
+$ python -m transformer.handler -d NET 
+```
+
+### 3. MongoBD
 #### 2.a. Deploy MongoBD
 ```bash
-** Deploy mongodb container
-$ cd mongodb (navigate to mongodb microservice)   
+** Deploy mongodb container   
 $ docker run -d --name mongodb --network="kafka-network" -p 27888:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=secret mongo
 ```
 #### 2.b. Upload data to MongoDB
 ```bash
-$ python -m mongodb.handler --action upload --dataset all
+$ python -m services.mongodb.uploader -d CICIDS -t train
+$ python -m services.mongodb.uploader -d CICIDS -t test
+
+$ python -m services.mongodb.uploader -d TRANSFORMED_CICIDS -t train
+$ python -m services.mongodb.uploader -d TRANSFORMED_CICIDS -t test
+
+$ python -m services.mongodb.uploader -d SELECTED_CICIDS -t train
+$ python -m services.mongodb.uploader -d SELECTED_CICIDS -t test
+
+$ python -m services.mongodb.uploader -d NET -t train
+$ python -m services.mongodb.uploader -d NET -t test
+
+$ python -m services.mongodb.uploader -d TRANSFORMED_NET -t train
+$ python -m services.mongodb.uploader -d TRANSFORMED_NET -t test
+
+$ python -m services.mongodb.uploader -d SELECTED_NET -t train
+$ python -m services.mongodb.uploader -d SELECTED_NET -t test
 ```
 
 ### 3. CassandraDB (cassandradb) [WIP]
