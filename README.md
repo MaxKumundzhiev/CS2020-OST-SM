@@ -85,13 +85,13 @@ $ python -m services.mongodb.uploader -d SELECTED_NET -t test
 ### 3. CassandraDB 
 Navigate to `services/cassandradb` and follow described in `README` steps
 
-### 4. Feature Engineering
+### 4. Spark
 ```bash
 $ cd spark (navigate to spark microservice) 
 $ docker-compose up (spin up spark docker container follow jupyter notebook instructions)
 ```
 
-### 5. Off-line models training
+### 5. Off-line training
 Train certain model within particular dataset:
 ```bash
 $ python -m services.ml_kit.train -d <DATASET NAME> -t <TYPE OF TASK> -m <MODEL NAME>
@@ -123,26 +123,61 @@ $ python -m services.ml_kit.train -d SELECTED_NET -t multi_class -m decision-tre
 $ python -m services.ml_kit.train -d SELECTED_NET -t multi_class -m random-forest
 ``` 
 
-### 6. Streaming Prediction (kafka) [WIP]
-```bash
-$ cd kafka
+### 6. Kafka
+The execution should be done from `services/kafka` folder. 
+
+#### Before Deployment
+Before launching proposed commands, navigate to `docker.env` and setup desired parameters:
 ```
-Before launching the kafka microservice, navigate to `./kafka/docker.env` and setup desired parameters:
-```
-Example:
-    DATASET=CICIDS2017
-    LEVEL=top
-    MODEL=svm
+!!! ALL PARAMETRES ARE POSITIONAL (I.E. REQUIRED)
+For example:
+    DATASET=SELECTED_CICIDS
+    MODEL=logistic-regressor
+    MODELS_CHECKPOINT=/usr/src/app/services/models/ 
+    TASK_TYPE=binary_class
+    DATABASE=mongodb
+    DB_NAME='ost'
+    DB_URL='mongodb://admin:secret@localhost:27888/?authSource=admin'
     DATABASE=mongodb
 
 Explanation:
-    DATASET=<NAME OF DATASET TO PROCESS> # TEST SET NOT TRAIN
-    LEVEL=<LEVEL OF DATASET TO PROCESS> # FINE, MID, TOP -- EACH DATASET HAS IT"S OWN PARTICULAR TYPES 
-    MODEL=<TYPE OF PREDICTING MODEL> # [SVM, DECISION TREE, RANDOM FOREST] 
-    DATABASE=<DATABASE TO WRITE RESULTS> # [MONGODB, CASSANDRADB]
+    DATASET=<NAME OF DATASET TO PROCESS> 
+    MODEL=<MODEL TO USE> 
+    MODELS_CHECKPOINT=/usr/src/app/services/models/ # SHOULD BE KEPT SAME
+    TASK_TYPE=<TYPE OF TARGET LABEL>
+    DATABASE=<DATABASE TO WRITE RESULTS> # [WIP] PAUSE
+    DB_NAME=<DATABASE NAME> # [WIP] PAUSED
+    DB_URL=<DATABASE URI> # [WIP] PAUSED
+    DATABASE=<DATABASE ENGINE> # [WIP] PAUSED
 ``` 
+#### docker.env options
+```bash
+List of available datasets names:
+- SELECTED_CICIDS
+- SELECTED_NET
+```
 
-#### Deployment 
+```bash
+List of available models names:
+- logistic-regressor
+- decision-tree
+- random-forest
+```
+
+```bash
+List of available models names:
+- logistic-regressor
+- decision-tree
+- random-forest
+```
+
+```bash
+List of available tasks names:
+- binary_class
+- multi_class
+```
+ 
+#### Deployment
 ```bash
 # mandatory [Terminal 1]
 spin up the kafka && zookeeper clusters 
@@ -152,18 +187,7 @@ $ docker-compose -f docker-compose.kafka.yml up
 spin up the generator && detector   
 $ docker-compose --env-file docker.env up
 
-# addition [Terminal 3]
+# addition [Terminal 3] # specific case
 to know when kafka cluster finished initialising 
-$ docker-compose -f docker-compose.kafka.yml logs broker # specific case
-
-# addition [Terminal 3]
-to observe filtered by detector legit transactions (--topic streaming.transactions.legit)   
-$ docker-compose -f docker-compose.kafka.yml exec broker kafka-console-consumer --bootstrap-server localhost:9092 --topic streaming.transactions.legit
-
-# addition [Terminal 3]
-to observe filtered by detector fraud transactions (--topic streaming.transactions.fraud)
-$ docker-compose -f docker-compose.kafka.yml exec broker kafka-console-consumer --bootstrap-server localhost:9092 --topic streaming.transactions.fraud
+$ docker-compose -f docker-compose.kafka.yml logs broker 
 ```
-
-
-     
