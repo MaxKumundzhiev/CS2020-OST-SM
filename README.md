@@ -1,4 +1,6 @@
 # CS2020-OST-SM Application 
+Application high-level overview diagram
+![high-level overview diagram](omissions/ost-high-levele-diagrame.png)
 
 ## Deployment
 ###  0. Setup environment
