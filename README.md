@@ -82,31 +82,46 @@ $ python -m services.mongodb.uploader -d SELECTED_NET -t train
 $ python -m services.mongodb.uploader -d SELECTED_NET -t test
 ```
 
-### 3. CassandraDB (cassandradb) [WIP]
-#### 3.a. Deploy CassandraDB
-```bash
-** Deploy cassandra container
-$ cd cassandradb (navigate to cassandra microservice)   
-$ ... 
-```
+### 3. CassandraDB 
+Navigate to `services/cassandradb` and follow described in `README` steps
 
-#### 3.b. Upload data to CassandraDB
-```bash
-$ python -m cassandra.handler --action upload --dataset all (WIP)  
-```
-
-### 4. Feature Engineering (spark) [WIP]
+### 4. Feature Engineering
 ```bash
 $ cd spark (navigate to spark microservice) 
 $ docker-compose up (spin up spark docker container follow jupyter notebook instructions)
 ```
 
-### 5. Off-line models training (ml-kit) [WIP]
+### 5. Off-line models training
+Train certain model within particular dataset:
 ```bash
-$ cd ml_kit (navigate to ml_kit microservice) 
-$ python -m ml_kit.train --model <type of model> --dataset <dataset> --annotation <level of annotation>
-    e.g.: $ python -m ml_kit.train --model svm --dataset cicids --annotation fine    
+$ python -m services.ml_kit.train -d <DATASET NAME> -t <TYPE OF TASK> -m <MODEL NAME>
+
+For example:
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m logistic-regressor 
 ```
+
+Train all models within all datasets: 
+```bash
+# CICIDS Binary Classification
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m logistic-regressor
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m decision-tree
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m random-forest
+
+# CICIDS Multiclass Classification
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t multi_class -m logistic-regressor
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t multi_class -m decision-tree 
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t multi_class -m random-forest
+
+# NET Binary Classification
+$ python -m services.ml_kit.train -d SELECTED_NET -t binary_class -m logistic-regressor
+$ python -m services.ml_kit.train -d SELECTED_NET -t binary_class -m decision-tree
+$ python -m services.ml_kit.train -d SELECTED_NET -t binary_class -m random-forest
+
+# NET Multiclass Classification
+$ python -m services.ml_kit.train -d SELECTED_NET -t multi_class -m logistic-regressor
+$ python -m services.ml_kit.train -d SELECTED_NET -t multi_class -m decision-tree 
+$ python -m services.ml_kit.train -d SELECTED_NET -t multi_class -m random-forest
+``` 
 
 ### 6. Streaming Prediction (kafka) [WIP]
 ```bash

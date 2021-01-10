@@ -1,47 +1,104 @@
-# Models Description
-ML-KIT module is represented as 2 submodules based on datasets types.    
-1. Malware Detection (cicids, netml datasets)
-2. Traffic Classification (non-vpn dataset)
+# Models Hub
+Models Hub provides python interface to train 2 types of 3 dedicated models.   
 
-<h1>Traffic Classification</h1>
-Within Traffic Classification problem it was utilized 3 dedicated models. 
-<ul>
-  <li>Logistic Regression</li>
-  <li>Decision Tree</li>
-  <li>Random Forest</li>
-</ul>
-<p>
-  We divided the data set into 80% training, and 20% test set ( for final evaluation ). We used a cross-validation approach with grid search (to perform simple hyper-parameter tuning),
-  and picked the best model.
-</p>
-<h2>
-  The results for Test set evaluation of each class are included in the following table
-</h2>
-<table>
-  <thead>
-    <tr>
-      <th> Model name </th>
-      <th> Test accuracy </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Logistic Regression</td>
-      <td>70.17%</td>
-    </tr>
-    <tr>
-      <td>Decision Tree</td>
-      <td>72.93%</td>
-    </tr>
-    <tr>
-      <td>Random Forest</td>
-      <td>75.46%</td>
-    </tr>
-  </tbody>
-</table>
-<p>
-  In addition to classification models, we trained a Vanilla Generative Adversarial Network on the aforementioned data set. We can clearly monitor how the discriminator and generator
-  losses are converging indicating that the discriminator cannot distinguish between real and fake outputs.
-</p>
-<img width="700" height="500" src="diagrams/GAN.png" alt="Flink workflow" title="Flink Workflow" />
-<p>The generator model in the most basic test case can be used to generate synthetic data from any class using it in inference mode after passing the preferred class label</p>
+## Models
+1. Logistic Regression Classifier 
+2. Decision Tree Classifier
+3. Random Forest Classifier
+
+Each model utilized 2 types of task: `binary classficication` and `multiclass classficication`
+Trained models will be saved at `checkpoints/<DATASET NAME>/<PREDICTION TASK>/model.pkl` 
+
+## Training
+To train particular model on particular dataset it should be executed:
+```bash
+List of available datasets names:
+- SELECTED_CICIDS
+- SELECTED_NET
+```
+
+```bash
+List of available models names:
+- logistic-regressor
+- decision-tree
+- random-forest
+```
+
+```bash
+List of available models names:
+- logistic-regressor
+- decision-tree
+- random-forest
+```
+
+```bash
+List of available tasks names:
+- binary_class
+- multi_class
+```
+
+```bash
+$ python -m services.ml_kit.train -d <DATASET NAME> -t <TYPE OF TASK> -m <MODEL NAME>
+
+For example:
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m logistic-regressor 
+```
+
+## Possible chain of ALL executions
+```bash
+# CICIDS Binary Classification
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m logistic-regressor
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m decision-tree
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m random-forest
+
+# CICIDS Multiclass Classification
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t multi_class -m logistic-regressor
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t multi_class -m decision-tree 
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t multi_class -m random-forest
+
+# NET Binary Classification
+$ python -m services.ml_kit.train -d SELECTED_NET -t binary_class -m logistic-regressor
+$ python -m services.ml_kit.train -d SELECTED_NET -t binary_class -m decision-tree
+$ python -m services.ml_kit.train -d SELECTED_NET -t binary_class -m random-forest
+
+# NET Multiclass Classification
+$ python -m services.ml_kit.train -d SELECTED_NET -t multi_class -m logistic-regressor
+$ python -m services.ml_kit.train -d SELECTED_NET -t multi_class -m decision-tree 
+$ python -m services.ml_kit.train -d SELECTED_NET -t multi_class -m random-forest
+``` 
+
+Checkpoints folder structure:
+```
+.
+├── TRANSFORMED_CICIDS
+│   ├── binary_class
+│   │   ├── decision-tree
+│   │   │   └── model.pkl
+│   │   ├── logistic-regressor
+│   │   │   └── model.pkl
+│   │   └── random-forest
+│   │       └── model.pkl
+│   └── multi_class
+│       ├── decision-tree
+│       │   └── model.pkl
+│       ├── logistic-regressor
+│       │   └── model.pkl
+│       └── random-forest
+│           └── model.pkl
+└── TRANSFORMED_NET
+    ├── binary_class
+    │   ├── decision-tree
+    │   │   └── model.pkl
+    │   ├── logistic-regressor
+    │   │   └── model.pkl
+    │   └── random-forest
+    │       └── model.pkl
+    └── multi_class
+        ├── decision-tree
+        │   └── model.pkl
+        ├── logistic-regressor
+        │   └── model.pkl
+        └── random-forest
+            └── model.pkl
+``` 
+     

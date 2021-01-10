@@ -130,3 +130,6 @@ dmypy.json
 
 # NAS DATA
 NAS
+
+# Pre trained models pickleS
+services/ml_kit/checkpoints
