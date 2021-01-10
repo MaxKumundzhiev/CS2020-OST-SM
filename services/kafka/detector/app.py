@@ -12,7 +12,6 @@ import json
 import pickle
 import pandas as pd
 
-# from services.mongodb.utils import MongoFactory
 from kafka import KafkaConsumer, KafkaProducer
 
 
@@ -50,17 +49,11 @@ if __name__ == "__main__":
         bootstrap_servers=KAFKA_BROKER_URL,
         value_serializer=lambda value: json.dumps(value).encode(),
     )
+
     model_path = os.path.join(MODELS_CHECKPOINT, DATASET, TASK_TYPE, MODEL, 'model.pkl')
-    print(model_path)
     model = get_model(model_path)
 
-    print(MODEL, MODELS_CHECKPOINT, DATABASE, DB_URL, DB_NAME)
-
     for message in consumer:
-        # transaction: dict = message.value
-        # topic = FRAUD_TOPIC if is_suspicious(transaction) else LEGIT_TOPIC
-        # producer.send(topic, value=transaction)
-        # print(topic, transaction)  # DEBUG
         record: dict = message.value
         print(f"GET ROW {record}")  # DEBUG
 
@@ -71,5 +64,3 @@ if __name__ == "__main__":
 
         prediction = model.predict(record)
         print(f'PREDICTION: {prediction}')
-        topic = LEGIT_TOPIC
-        print(f"NEXT ROW")  # DEBUG
