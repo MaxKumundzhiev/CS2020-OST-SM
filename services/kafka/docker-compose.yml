@@ -21,7 +21,7 @@ services:
       FRAUD_TOPIC: streaming.transactions.fraud
       MODEL: ${MODEL}
     volumes:
-      - ../ml_kit:/usr/src/app/models/
+      - ../../ml_kit/checkpoints/:/usr/src/app/models/
       - ../mongodb:/usr/src/app/mongodb/
 
 networks:

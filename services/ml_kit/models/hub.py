@@ -18,19 +18,19 @@ class ModelsHub:
         return train_test_split(x, y, test_size=fraction, random_state=seed, shuffle=True)
 
     @staticmethod
-    def logistic_regression(x_train, y_train, x_test, y_test, seed):
+    def logistic_regression(x_train, x_test, y_train, y_test, seed):
         from sklearn.linear_model import LogisticRegression
         from sklearn.metrics import accuracy_score
 
         LOGGER.info('Utilized Logistic Regression')
-        clf = LogisticRegression(random_state=seed).fit(x_train, y_train)
+        clf = LogisticRegression(random_state=seed, max_iter=200).fit(x_train, y_train)
         predictions = clf.predict(x_test)
         score = accuracy_score(y_test, predictions)
         LOGGER.info(f'Logistic Regression score: {score}')
-        return score, predictions
+        return clf
 
     @staticmethod
-    def decision_tree(x_train, y_train, x_test, y_test, seed):
+    def decision_tree(x_train, x_test, y_train, y_test, seed):
         from sklearn.tree import DecisionTreeClassifier
         from sklearn.metrics import accuracy_score
 
@@ -39,10 +39,10 @@ class ModelsHub:
         predictions = clf.predict(x_test)
         score = accuracy_score(y_test, predictions)
         LOGGER.info(f'Decision Tree Classifier: {score}')
-        return score, predictions
+        return clf
 
     @staticmethod
-    def random_forest(x_train, y_train, x_test, y_test, seed):
+    def random_forest(x_train, x_test, y_train, y_test, seed):
         from sklearn.ensemble import RandomForestClassifier
         from sklearn.metrics import accuracy_score
 
@@ -51,5 +51,5 @@ class ModelsHub:
         predictions = clf.predict(x_test)
         score = accuracy_score(y_test, predictions)
         LOGGER.info(f'Random Forest: {score}')
-        return score, predictions
+        return clf
 
