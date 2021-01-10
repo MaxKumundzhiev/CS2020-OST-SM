@@ -1,37 +1,5 @@
 # CS2020-OST-SM Application 
 
-**Each team member has dedicated git branch to work on with corresponding name.**
-<ul><b>Participants</b>:
-<li><s>Ahmad Abdelrahim -- user-1</s>></li>
-<li>Bashar Khdr -- user-2</li>
-<li>Georgie Kalaygie -- user-3</li>
-<li>Tasnime Ayed -- user-4</li>
-<li>Ekaterina Zolotareva -- user-5</li>
-<li>Maksim Kumundzhiev -- user-6</li>
-</ul>
-
-
-## Kick off
-```bash
-$ mkdir ost-sm && cd ost-sm
-$ git clone https://github.com/KumundzhievMaxim/CS2020-OST-SM.git && cd CS2020-OST-SM
-$ git checkout user-{your_number}
-```
-
-## Hints 
-1. do not forget frequently fetch updates from master branch if there are such.   
-2. do more commits approaching your task. 
-  use following format to commit changes:
-  `$ git commit -m 'user-{your_number}, {what"s done}'`
-
-4. do more PRs approaching your task.
-  - write explicit description of PR;
-  - assign yourself for pushing PR;
-  - add reviewers (your team members) for PR;
-  - DO NOT merge PR until at least one of team members will not review it;  
-
-5. keep code clean and readable for other team members. 
-
 ## Deployment
 ###  0. Setup environment
 ```bash
@@ -191,3 +159,37 @@ $ docker-compose --env-file docker.env up
 to know when kafka cluster finished initialising 
 $ docker-compose -f docker-compose.kafka.yml logs broker 
 ```
+
+
+# Development
+**Each team member has dedicated git branch to work on with corresponding name.**
+<ul><b>Participants</b>:
+<li><s>Ahmad Abdelrahim -- user-1</s>></li>
+<li>Bashar Khdr -- user-2</li>
+<li>Georgie Kalaygie -- user-3</li>
+<li>Tasnime Ayed -- user-4</li>
+<li>Ekaterina Zolotareva -- user-5</li>
+<li>Maksim Kumundzhiev -- user-6</li>
+</ul>
+
+
+## Kick off
+```bash
+$ mkdir ost-sm && cd ost-sm
+$ git clone https://github.com/KumundzhievMaxim/CS2020-OST-SM.git && cd CS2020-OST-SM
+$ git checkout user-{your_number}
+```
+
+## Hints 
+1. do not forget frequently fetch updates from master branch if there are such.   
+2. do more commits approaching your task. 
+  use following format to commit changes:
+  `$ git commit -m 'user-{your_number}, {what"s done}'`
+
+4. do more PRs approaching your task.
+  - write explicit description of PR;
+  - assign yourself for pushing PR;
+  - add reviewers (your team members) for PR;
+  - DO NOT merge PR until at least one of team members will not review it;  
+
+5. keep code clean and readable for other team members.
