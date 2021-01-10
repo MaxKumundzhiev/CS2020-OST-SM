@@ -12,6 +12,8 @@ from pathlib import Path
 
 import pickle
 import pandas as pd
+
+# @TODO delete encoding once spark ready
 from sklearn.preprocessing import OrdinalEncoder
 
 from services.ml_kit.models.hub import ModelsHub
@@ -29,6 +31,7 @@ def save_model(classifier, dataset_name, type, model):
 
 
 def run(dataset_name, type, model):
+    # @TODO delete encoding once spark ready
     ordinal_encoder = OrdinalEncoder()
 
     dataset_path = Path(NAS, dataset_name, 'train.csv')
@@ -41,9 +44,11 @@ def run(dataset_name, type, model):
 
     else:
         data.drop(columns='binary_class', axis=1, inplace=True)
-        LOGGER.info (f'Train task: {type}. Dropped binary-class column from train set')
+        LOGGER.info(f'Train task: {type}. Dropped binary-class column from train set')
 
+    # @TODO delete encoding once spark ready
     data['y'] = ordinal_encoder.fit_transform(data[[f'{type}']])
+
     data.drop(columns=f'{type}', axis=1, inplace=True)
 
     # @TODO delete line once spark ready

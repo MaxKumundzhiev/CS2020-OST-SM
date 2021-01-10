@@ -9,26 +9,31 @@
 import os
 import json
 
-from services.mongodb.utils import Factory
+from services.mongodb.utils import MongoFactory
 from kafka import KafkaConsumer, KafkaProducer
+from services.kafka.detector.detector import get_model
 
 DB_URL = os.environ.get("DB_URL")
 DB_NAME = os.environ.get("DB_NAME")
+DATABASE = os.environ.get("DATABASE")
 
 MODEL = os.environ.get("MODEL")
+MODELS_CHECKPOINT = os.environ.get("MODELS_CHECKPOINT")
+TASK_TYPE = os.environ.get("TASK_TYPE")
+
+DATASET = os.environ.get('DATASET')
 
 KAFKA_BROKER_URL = os.environ.get("KAFKA_BROKER_URL")
 TRANSACTIONS_TOPIC = os.environ.get("TRANSACTIONS_TOPIC")
+
 LEGIT_TOPIC = os.environ.get("LEGIT_TOPIC")
 FRAUD_TOPIC = os.environ.get("FRAUD_TOPIC")
 
 
-def is_suspicious(transaction: dict) -> bool:
-    """Determine whether a transaction is suspicious."""
-    return transaction["amount"] >= 900
-
-
 if __name__ == "__main__":
+    model_path = Path(MODELS_CHECKPOINT, DATASET, TASK_TYPE, MODEL)
+    get_model(model_path)
+
     consumer = KafkaConsumer(
         TRANSACTIONS_TOPIC,
         bootstrap_servers=KAFKA_BROKER_URL,
@@ -38,7 +43,7 @@ if __name__ == "__main__":
         bootstrap_servers=KAFKA_BROKER_URL,
         value_serializer=lambda value: json.dumps(value).encode(),
     )
-    print(MODEL, DB_URL, DB_NAME)
+    print(MODEL, MODELS_CHECKPOINT, DATABASE, DB_URL, DB_NAME)
     for message in consumer:
         # transaction: dict = message.value
         # topic = FRAUD_TOPIC if is_suspicious(transaction) else LEGIT_TOPIC
