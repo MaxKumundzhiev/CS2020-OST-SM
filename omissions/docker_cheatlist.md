@@ -31,4 +31,12 @@ $ docker exec -it <docker container ID> /bin/sh
 To create/change a root password in a running container
 $ docker exec -itu root <container ID> passwd
 
+To remove all images 
+$ docker rmi $(docker images -q)
+
+Stop all running containers 
+$ docker stop $(docker ps -a -q)
+
+Delete all stopped containers
+$ docker rm $(docker ps -a -q)
 ```

@@ -16,8 +16,8 @@ import pandas as pd
 
 
 def validate_dataset(dataset) -> Path:
-    dataset_path = Path(f'/usr/src/app/NAS/{dataset}/test/test.csv')
-    assert dataset_path.exists(), f'FileNotFound, there is no such {dataset} file or directory'
+    dataset_path = Path(f'/usr/src/app/NAS/{dataset}/test.csv')
+    assert dataset_path.exists(), f'FileNotFound, there is no such {dataset_path} file or directory'
     print(f'VALIDATED DATASET: {dataset_path}')
     return dataset_path
 

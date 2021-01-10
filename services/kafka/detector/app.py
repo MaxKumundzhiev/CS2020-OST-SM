@@ -9,9 +9,12 @@
 import os
 import json
 
-from services.mongodb.utils import MongoFactory
+import pickle
+import pandas as pd
+
+# from services.mongodb.utils import MongoFactory
 from kafka import KafkaConsumer, KafkaProducer
-from services.kafka.detector.detector import get_model
+
 
 DB_URL = os.environ.get("DB_URL")
 DB_NAME = os.environ.get("DB_NAME")
@@ -30,10 +33,14 @@ LEGIT_TOPIC = os.environ.get("LEGIT_TOPIC")
 FRAUD_TOPIC = os.environ.get("FRAUD_TOPIC")
 
 
-if __name__ == "__main__":
-    model_path = Path(MODELS_CHECKPOINT, DATASET, TASK_TYPE, MODEL)
-    get_model(model_path)
+def get_model(path):
+    assert os.path.exists(path), f'Error happened'
+    with open(path, 'rb') as file:
+        clf = pickle.load(file)
+    return clf
 
+
+if __name__ == "__main__":
     consumer = KafkaConsumer(
         TRANSACTIONS_TOPIC,
         bootstrap_servers=KAFKA_BROKER_URL,
@@ -43,16 +50,26 @@ if __name__ == "__main__":
         bootstrap_servers=KAFKA_BROKER_URL,
         value_serializer=lambda value: json.dumps(value).encode(),
     )
+    model_path = os.path.join(MODELS_CHECKPOINT, DATASET, TASK_TYPE, MODEL, 'model.pkl')
+    print(model_path)
+    model = get_model(model_path)
+
     print(MODEL, MODELS_CHECKPOINT, DATABASE, DB_URL, DB_NAME)
+
     for message in consumer:
         # transaction: dict = message.value
         # topic = FRAUD_TOPIC if is_suspicious(transaction) else LEGIT_TOPIC
         # producer.send(topic, value=transaction)
         # print(topic, transaction)  # DEBUG
-        print(f"GET ROW {message.value}")  # DEBUG
         record: dict = message.value
+        print(f"GET ROW {record}")  # DEBUG
+
+        df = pd.DataFrame.from_dict(record, orient='index')
+        # df = pd.DataFrame.from_dict(record, orient='index').T.values # uncomment once spark delivered
+        # @TODO delete once spark is ready, because there will be no Nan values
+        record = df.fillna(df.mean()).T.values
+
+        prediction = model.predict(record)
+        print(f'PREDICTION: {prediction}')
         topic = LEGIT_TOPIC
-        # print(f'WRITING TO MONGO: {record}')
-        # producer.send(topic, value=record)
-        Factory().run(record)
         print(f"NEXT ROW")  # DEBUG
