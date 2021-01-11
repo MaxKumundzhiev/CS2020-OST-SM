@@ -133,3 +133,6 @@ NAS
 
 # Pre trained models pickleS
 services/ml_kit/checkpoints
+
+#VS Code
+.idea
