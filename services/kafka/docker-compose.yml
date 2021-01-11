@@ -2,27 +2,32 @@ version: "3"
 
 services:
   generator:
-    build: generator
+    build: ../kafka/generator
     environment:
       KAFKA_BROKER_URL: broker:9092
       TRANSACTIONS_TOPIC: queueing.transactions
       TRANSACTIONS_PER_SECOND: 1000
       DATASET: ${DATASET}
-      LEVEL: ${LEVEL}
     volumes:
-      - ../NAS:/usr/src/app/NAS/
+      - ../../NAS:/usr/src/app/NAS/
 
   detector:
-    build: detector
+    build: ../kafka/detector
     environment:
       KAFKA_BROKER_URL: broker:9092
       TRANSACTIONS_TOPIC: queueing.transactions
       LEGIT_TOPIC: streaming.transactions.legit
       FRAUD_TOPIC: streaming.transactions.fraud
+      DATASET: ${DATASET}
       MODEL: ${MODEL}
+      MODELS_CHECKPOINT: ${MODELS_CHECKPOINT}
+      TASK_TYPE: ${TASK_TYPE}
+      DB_URL: ${DB_URL}
+      DB_NAME: ${DB_NAME}
+      DATABASE: ${DATABASE}
     volumes:
-      - ../ml_kit:/usr/src/app/models/
-      - ../mongodb:/usr/src/app/mongodb/
+      - ../ml_kit/checkpoints/:/usr/src/app/services/models/
+      - ../mongodb:/usr/src/app/services/mongodb/
 
 networks:
   default:

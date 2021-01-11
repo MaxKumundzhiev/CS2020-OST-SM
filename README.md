@@ -1,36 +1,6 @@
 # CS2020-OST-SM Application 
-
-**Each team member has dedicated git branch to work on with corresponding name.**
-<ul><b>Participants</b>:
-<li><s>Ahmad Abdelrahim -- user-1</s>></li>
-<li>Bashar Khdr -- user-2</li>
-<li>Georgie Kalaygie -- user-3</li>
-<li>Tasnime Ayed -- user-4</li>
-<li>Ekaterina Zolotareva -- user-5</li>
-<li>Maksim Kumundzhiev -- user-6</li>
-</ul>
-
-
-## Kick off
-```bash
-$ mkdir ost-sm && cd ost-sm
-$ git clone https://github.com/KumundzhievMaxim/CS2020-OST-SM.git && cd CS2020-OST-SM
-$ git checkout user-{your_number}
-```
-
-## Hints 
-1. do not forget frequently fetch updates from master branch if there are such.   
-2. do more commits approaching your task. 
-  use following format to commit changes:
-  `$ git commit -m 'user-{your_number}, {what"s done}'`
-
-4. do more PRs approaching your task.
-  - write explicit description of PR;
-  - assign yourself for pushing PR;
-  - add reviewers (your team members) for PR;
-  - DO NOT merge PR until at least one of team members will not review it;  
-
-5. keep code clean and readable for other team members. 
+Application high-level overview diagram
+![high-level overview diagram](omissions/ost-high-levele-diagrame.png)
 
 ## Deployment
 ###  0. Setup environment
@@ -82,52 +52,102 @@ $ python -m services.mongodb.uploader -d SELECTED_NET -t train
 $ python -m services.mongodb.uploader -d SELECTED_NET -t test
 ```
 
-### 3. CassandraDB (cassandradb) [WIP]
-#### 3.a. Deploy CassandraDB
-```bash
-** Deploy cassandra container
-$ cd cassandradb (navigate to cassandra microservice)   
-$ ... 
-```
+### 3. CassandraDB 
+Navigate to `services/cassandradb` and follow described in `README` steps
 
-#### 3.b. Upload data to CassandraDB
-```bash
-$ python -m cassandra.handler --action upload --dataset all (WIP)  
-```
-
-### 4. Feature Engineering (spark) [WIP]
+### 4. Spark
 ```bash
 $ cd spark (navigate to spark microservice) 
 $ docker-compose up (spin up spark docker container follow jupyter notebook instructions)
 ```
 
-### 5. Off-line models training (ml-kit) [WIP]
+### 5. Off-line training
+Train certain model within particular dataset:
 ```bash
-$ cd ml_kit (navigate to ml_kit microservice) 
-$ python -m ml_kit.train --model <type of model> --dataset <dataset> --annotation <level of annotation>
-    e.g.: $ python -m ml_kit.train --model svm --dataset cicids --annotation fine    
+$ python -m services.ml_kit.train -d <DATASET NAME> -t <TYPE OF TASK> -m <MODEL NAME>
+
+For example:
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m logistic-regressor 
 ```
 
-### 6. Streaming Prediction (kafka) [WIP]
+Train all models within all datasets: 
 ```bash
-$ cd kafka
+# CICIDS Binary Classification
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m logistic-regressor
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m decision-tree
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t binary_class -m random-forest
+
+# CICIDS Multiclass Classification
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t multi_class -m logistic-regressor
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t multi_class -m decision-tree 
+$ python -m services.ml_kit.train -d SELECTED_CICIDS -t multi_class -m random-forest
+
+# NET Binary Classification
+$ python -m services.ml_kit.train -d SELECTED_NET -t binary_class -m logistic-regressor
+$ python -m services.ml_kit.train -d SELECTED_NET -t binary_class -m decision-tree
+$ python -m services.ml_kit.train -d SELECTED_NET -t binary_class -m random-forest
+
+# NET Multiclass Classification
+$ python -m services.ml_kit.train -d SELECTED_NET -t multi_class -m logistic-regressor
+$ python -m services.ml_kit.train -d SELECTED_NET -t multi_class -m decision-tree 
+$ python -m services.ml_kit.train -d SELECTED_NET -t multi_class -m random-forest
+``` 
+
+### 6. Kafka
+The execution should be done from `services/kafka` folder. 
+
+#### Before Deployment
+Before launching proposed commands, navigate to `docker.env` and setup desired parameters:
 ```
-Before launching the kafka microservice, navigate to `./kafka/docker.env` and setup desired parameters:
-```
-Example:
-    DATASET=CICIDS2017
-    LEVEL=top
-    MODEL=svm
+!!! ALL PARAMETRES ARE POSITIONAL (I.E. REQUIRED)
+For example:
+    DATASET=SELECTED_CICIDS
+    MODEL=logistic-regressor
+    MODELS_CHECKPOINT=/usr/src/app/services/models/ 
+    TASK_TYPE=binary_class
+    DATABASE=mongodb
+    DB_NAME='ost'
+    DB_URL='mongodb://admin:secret@localhost:27888/?authSource=admin'
     DATABASE=mongodb
 
 Explanation:
-    DATASET=<NAME OF DATASET TO PROCESS> # TEST SET NOT TRAIN
-    LEVEL=<LEVEL OF DATASET TO PROCESS> # FINE, MID, TOP -- EACH DATASET HAS IT"S OWN PARTICULAR TYPES 
-    MODEL=<TYPE OF PREDICTING MODEL> # [SVM, DECISION TREE, RANDOM FOREST] 
-    DATABASE=<DATABASE TO WRITE RESULTS> # [MONGODB, CASSANDRADB]
+    DATASET=<NAME OF DATASET TO PROCESS> 
+    MODEL=<MODEL TO USE> 
+    MODELS_CHECKPOINT=/usr/src/app/services/models/ # SHOULD BE KEPT SAME
+    TASK_TYPE=<TYPE OF TARGET LABEL>
+    DATABASE=<DATABASE TO WRITE RESULTS> # [WIP] PAUSE
+    DB_NAME=<DATABASE NAME> # [WIP] PAUSED
+    DB_URL=<DATABASE URI> # [WIP] PAUSED
+    DATABASE=<DATABASE ENGINE> # [WIP] PAUSED
 ``` 
+#### docker.env options
+```bash
+List of available datasets names:
+- SELECTED_CICIDS
+- SELECTED_NET
+```
 
-#### Deployment 
+```bash
+List of available models names:
+- logistic-regressor
+- decision-tree
+- random-forest
+```
+
+```bash
+List of available models names:
+- logistic-regressor
+- decision-tree
+- random-forest
+```
+
+```bash
+List of available tasks names:
+- binary_class
+- multi_class
+```
+ 
+#### Deployment
 ```bash
 # mandatory [Terminal 1]
 spin up the kafka && zookeeper clusters 
@@ -137,18 +157,41 @@ $ docker-compose -f docker-compose.kafka.yml up
 spin up the generator && detector   
 $ docker-compose --env-file docker.env up
 
-# addition [Terminal 3]
+# addition [Terminal 3] # specific case
 to know when kafka cluster finished initialising 
-$ docker-compose -f docker-compose.kafka.yml logs broker # specific case
-
-# addition [Terminal 3]
-to observe filtered by detector legit transactions (--topic streaming.transactions.legit)   
-$ docker-compose -f docker-compose.kafka.yml exec broker kafka-console-consumer --bootstrap-server localhost:9092 --topic streaming.transactions.legit
-
-# addition [Terminal 3]
-to observe filtered by detector fraud transactions (--topic streaming.transactions.fraud)
-$ docker-compose -f docker-compose.kafka.yml exec broker kafka-console-consumer --bootstrap-server localhost:9092 --topic streaming.transactions.fraud
+$ docker-compose -f docker-compose.kafka.yml logs broker 
 ```
 
 
-     
+# Development
+**Each team member has dedicated git branch to work on with corresponding name.**
+<ul><b>Participants</b>:
+<li><s>Ahmad Abdelrahim -- user-1</s>></li>
+<li>Bashar Khdr -- user-2</li>
+<li>Georgie Kalaygie -- user-3</li>
+<li>Tasnime Ayed -- user-4</li>
+<li>Ekaterina Zolotareva -- user-5</li>
+<li>Maksim Kumundzhiev -- user-6</li>
+</ul>
+
+
+## Kick off
+```bash
+$ mkdir ost-sm && cd ost-sm
+$ git clone https://github.com/KumundzhievMaxim/CS2020-OST-SM.git && cd CS2020-OST-SM
+$ git checkout user-{your_number}
+```
+
+## Hints 
+1. do not forget frequently fetch updates from master branch if there are such.   
+2. do more commits approaching your task. 
+  use following format to commit changes:
+  `$ git commit -m 'user-{your_number}, {what"s done}'`
+
+4. do more PRs approaching your task.
+  - write explicit description of PR;
+  - assign yourself for pushing PR;
+  - add reviewers (your team members) for PR;
+  - DO NOT merge PR until at least one of team members will not review it;  
+
+5. keep code clean and readable for other team members.
