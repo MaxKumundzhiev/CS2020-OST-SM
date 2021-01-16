@@ -25,13 +25,6 @@ List of available models names:
 ```
 
 ```bash
-List of available models names:
-- logistic-regressor
-- decision-tree
-- random-forest
-```
-
-```bash
 List of available tasks names:
 - binary_class
 - multi_class
